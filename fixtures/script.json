@@ -1,0 +1,6 @@
+[
+  {"kind":"call_tool","call":{"name":"search_calendar","arguments":{"participant":"alice@example.com","start":"2026-09-21T00:00:00-04:00","end":"2026-09-28T00:00:00-04:00"}}},
+  {"kind":"call_tool","call":{"name":"search_email","arguments":{"participant":"alice@example.com","topic":"waypoint-launch","unread_only":true}}},
+  {"kind":"call_tool","call":{"name":"read_email","arguments":{"email_id":"mail-alice-unread"}}},
+  {"kind":"propose_completion","findings":{"outcome":"found","meeting_ids":["cal-alice-001"],"unread_email_ids":["mail-alice-unread"],"evidence_ids":["obs-1","obs-2","obs-3"]}}
+]

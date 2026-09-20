@@ -1,0 +1,15 @@
+{
+  "clock": "2026-09-20T12:00:00-04:00",
+  "meetings": [
+    {"id":"cal-alice-001","title":"Waypoint launch review with Alice","start":"2026-09-22T10:00:00-04:00","end":"2026-09-22T10:30:00-04:00","participants":["me@example.com","alice@example.com"],"topic":"waypoint-launch"},
+    {"id":"cal-bob-001","title":"Launch review with Bob","start":"2026-09-23T10:00:00-04:00","end":"2026-09-23T10:30:00-04:00","participants":["me@example.com","bob@example.com"],"topic":"waypoint-launch"},
+    {"id":"cal-alice-old","title":"Previous Alice review","start":"2026-09-18T10:00:00-04:00","end":"2026-09-18T10:30:00-04:00","participants":["alice@example.com"],"topic":"waypoint-launch"},
+    {"id":"cal-alice-later","title":"Later Alice review","start":"2026-09-28T00:00:00-04:00","end":"2026-09-28T00:30:00-04:00","participants":["alice@example.com"],"topic":"waypoint-launch"}
+  ],
+  "emails": [
+    {"id":"mail-alice-unread","subject":"Launch review agenda","participants":["alice@example.com","me@example.com"],"topic":"waypoint-launch","unread":true,"sent_at":"2026-09-19T14:00:00-04:00","body":"Please review the launch checklist before our Tuesday meeting."},
+    {"id":"mail-alice-read","subject":"Launch review invitation","participants":["alice@example.com","me@example.com"],"topic":"waypoint-launch","unread":false,"sent_at":"2026-09-17T14:00:00-04:00","body":"Our review is scheduled for Tuesday."},
+    {"id":"mail-alice-unrelated","subject":"Dinner plans","participants":["alice@example.com","me@example.com"],"topic":"weekend-dinner","unread":true,"sent_at":"2026-09-19T16:00:00-04:00","body":"Are you free for dinner?"},
+    {"id":"mail-bob-unread","subject":"Bob launch notes","participants":["bob@example.com","me@example.com"],"topic":"waypoint-launch","unread":true,"sent_at":"2026-09-19T15:00:00-04:00","body":"Notes for our separate review."}
+  ]
+}

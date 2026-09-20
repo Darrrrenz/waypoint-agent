@@ -1,0 +1,427 @@
+{
+  "checkpoint": {
+    "state": {
+      "task": {
+        "id": "b3b8fb07-2409-45e8-9402-63672004052e",
+        "goal": "Find my meeting with Alice next week and tell me whether I have any related unread emails.",
+        "created_at": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto"
+        },
+        "status": "completed",
+        "termination_reason": "verified"
+      },
+      "steps": 4,
+      "model_calls": 4,
+      "errors": 0,
+      "observations": [
+        {
+          "id": "obs-1",
+          "call": {
+            "name": "search_calendar",
+            "arguments": {
+              "participant": "alice@example.com",
+              "start": "2026-09-21T00:00:00-04:00",
+              "end": "2026-09-28T00:00:00-04:00"
+            }
+          },
+          "output": {
+            "meetings": [
+              {
+                "id": "cal-alice-001",
+                "title": "Waypoint launch review with Alice",
+                "start": "2026-09-22T10:00:00-04:00",
+                "end": "2026-09-22T10:30:00-04:00",
+                "participants": [
+                  "me@example.com",
+                  "alice@example.com"
+                ],
+                "topic": "waypoint-launch"
+              }
+            ],
+            "exhaustive": true
+          }
+        },
+        {
+          "id": "obs-2",
+          "call": {
+            "name": "search_email",
+            "arguments": {
+              "participant": "alice@example.com",
+              "topic": "waypoint-launch",
+              "unread_only": true
+            }
+          },
+          "output": {
+            "emails": [
+              {
+                "id": "mail-alice-unread",
+                "subject": "Launch review agenda",
+                "participants": [
+                  "alice@example.com",
+                  "me@example.com"
+                ],
+                "topic": "waypoint-launch",
+                "unread": true,
+                "sent_at": "2026-09-19T14:00:00-04:00",
+                "body": "Please review the launch checklist before our Tuesday meeting."
+              }
+            ],
+            "exhaustive": true
+          }
+        },
+        {
+          "id": "obs-3",
+          "call": {
+            "name": "read_email",
+            "arguments": {
+              "email_id": "mail-alice-unread"
+            }
+          },
+          "output": {
+            "id": "mail-alice-unread",
+            "subject": "Launch review agenda",
+            "participants": [
+              "alice@example.com",
+              "me@example.com"
+            ],
+            "topic": "waypoint-launch",
+            "unread": true,
+            "sent_at": "2026-09-19T14:00:00-04:00",
+            "body": "Please review the launch checklist before our Tuesday meeting."
+          }
+        }
+      ],
+      "feedback": [],
+      "findings": {
+        "outcome": "found",
+        "meeting_ids": [
+          "cal-alice-001"
+        ],
+        "unread_email_ids": [
+          "mail-alice-unread"
+        ],
+        "evidence_ids": [
+          "obs-1",
+          "obs-2",
+          "obs-3"
+        ]
+      },
+      "answer": "Meeting: Waypoint launch review with Alice, 2026-09-22T10:00:00-04:00 [cal-alice-001]. Related unread emails: Launch review agenda [mail-alice-unread]. Evidence: obs-1, obs-2, obs-3"
+    },
+    "last_sequence": 16
+  },
+  "events": [
+    {
+      "task_id": "b3b8fb07-2409-45e8-9402-63672004052e",
+      "sequence": 1,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "task_started",
+      "data": {
+        "goal": "Find my meeting with Alice next week and tell me whether I have any related unread emails.",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto"
+        }
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "b3b8fb07-2409-45e8-9402-63672004052e",
+      "sequence": 2,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "model_requested",
+      "data": {
+        "step": 1
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "b3b8fb07-2409-45e8-9402-63672004052e",
+      "sequence": 3,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "model_response",
+      "data": {
+        "action": {
+          "kind": "call_tool",
+          "call": {
+            "name": "search_calendar",
+            "arguments": {
+              "participant": "alice@example.com",
+              "start": "2026-09-21T00:00:00-04:00",
+              "end": "2026-09-28T00:00:00-04:00"
+            }
+          }
+        }
+      },
+      "latency_ms": 1.6484999796375632,
+      "usage": null
+    },
+    {
+      "task_id": "b3b8fb07-2409-45e8-9402-63672004052e",
+      "sequence": 4,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "tool_requested",
+      "data": {
+        "name": "search_calendar",
+        "arguments": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00"
+        }
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "b3b8fb07-2409-45e8-9402-63672004052e",
+      "sequence": 5,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "tool_result",
+      "data": {
+        "id": "obs-1",
+        "call": {
+          "name": "search_calendar",
+          "arguments": {
+            "participant": "alice@example.com",
+            "start": "2026-09-21T00:00:00-04:00",
+            "end": "2026-09-28T00:00:00-04:00"
+          }
+        },
+        "output": {
+          "meetings": [
+            {
+              "id": "cal-alice-001",
+              "title": "Waypoint launch review with Alice",
+              "start": "2026-09-22T10:00:00-04:00",
+              "end": "2026-09-22T10:30:00-04:00",
+              "participants": [
+                "me@example.com",
+                "alice@example.com"
+              ],
+              "topic": "waypoint-launch"
+            }
+          ],
+          "exhaustive": true
+        }
+      },
+      "latency_ms": 0.08629995863884687,
+      "usage": null
+    },
+    {
+      "task_id": "b3b8fb07-2409-45e8-9402-63672004052e",
+      "sequence": 6,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "model_requested",
+      "data": {
+        "step": 2
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "b3b8fb07-2409-45e8-9402-63672004052e",
+      "sequence": 7,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "model_response",
+      "data": {
+        "action": {
+          "kind": "call_tool",
+          "call": {
+            "name": "search_email",
+            "arguments": {
+              "participant": "alice@example.com",
+              "topic": "waypoint-launch",
+              "unread_only": true
+            }
+          }
+        }
+      },
+      "latency_ms": 1.1343000223860145,
+      "usage": null
+    },
+    {
+      "task_id": "b3b8fb07-2409-45e8-9402-63672004052e",
+      "sequence": 8,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "tool_requested",
+      "data": {
+        "name": "search_email",
+        "arguments": {
+          "participant": "alice@example.com",
+          "topic": "waypoint-launch",
+          "unread_only": true
+        }
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "b3b8fb07-2409-45e8-9402-63672004052e",
+      "sequence": 9,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "tool_result",
+      "data": {
+        "id": "obs-2",
+        "call": {
+          "name": "search_email",
+          "arguments": {
+            "participant": "alice@example.com",
+            "topic": "waypoint-launch",
+            "unread_only": true
+          }
+        },
+        "output": {
+          "emails": [
+            {
+              "id": "mail-alice-unread",
+              "subject": "Launch review agenda",
+              "participants": [
+                "alice@example.com",
+                "me@example.com"
+              ],
+              "topic": "waypoint-launch",
+              "unread": true,
+              "sent_at": "2026-09-19T14:00:00-04:00",
+              "body": "Please review the launch checklist before our Tuesday meeting."
+            }
+          ],
+          "exhaustive": true
+        }
+      },
+      "latency_ms": 0.05659996531903744,
+      "usage": null
+    },
+    {
+      "task_id": "b3b8fb07-2409-45e8-9402-63672004052e",
+      "sequence": 10,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "model_requested",
+      "data": {
+        "step": 3
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "b3b8fb07-2409-45e8-9402-63672004052e",
+      "sequence": 11,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "model_response",
+      "data": {
+        "action": {
+          "kind": "call_tool",
+          "call": {
+            "name": "read_email",
+            "arguments": {
+              "email_id": "mail-alice-unread"
+            }
+          }
+        }
+      },
+      "latency_ms": 1.1045000283047557,
+      "usage": null
+    },
+    {
+      "task_id": "b3b8fb07-2409-45e8-9402-63672004052e",
+      "sequence": 12,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "tool_requested",
+      "data": {
+        "name": "read_email",
+        "arguments": {
+          "email_id": "mail-alice-unread"
+        }
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "b3b8fb07-2409-45e8-9402-63672004052e",
+      "sequence": 13,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "tool_result",
+      "data": {
+        "id": "obs-3",
+        "call": {
+          "name": "read_email",
+          "arguments": {
+            "email_id": "mail-alice-unread"
+          }
+        },
+        "output": {
+          "id": "mail-alice-unread",
+          "subject": "Launch review agenda",
+          "participants": [
+            "alice@example.com",
+            "me@example.com"
+          ],
+          "topic": "waypoint-launch",
+          "unread": true,
+          "sent_at": "2026-09-19T14:00:00-04:00",
+          "body": "Please review the launch checklist before our Tuesday meeting."
+        }
+      },
+      "latency_ms": 0.041599967516958714,
+      "usage": null
+    },
+    {
+      "task_id": "b3b8fb07-2409-45e8-9402-63672004052e",
+      "sequence": 14,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "model_requested",
+      "data": {
+        "step": 4
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "b3b8fb07-2409-45e8-9402-63672004052e",
+      "sequence": 15,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "model_response",
+      "data": {
+        "action": {
+          "kind": "propose_completion",
+          "findings": {
+            "outcome": "found",
+            "meeting_ids": [
+              "cal-alice-001"
+            ],
+            "unread_email_ids": [
+              "mail-alice-unread"
+            ],
+            "evidence_ids": [
+              "obs-1",
+              "obs-2",
+              "obs-3"
+            ]
+          }
+        }
+      },
+      "latency_ms": 1.2012000661343336,
+      "usage": null
+    },
+    {
+      "task_id": "b3b8fb07-2409-45e8-9402-63672004052e",
+      "sequence": 16,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "completion_verified",
+      "data": {
+        "accepted": true,
+        "reasons": [],
+        "answer": "Meeting: Waypoint launch review with Alice, 2026-09-22T10:00:00-04:00 [cal-alice-001]. Related unread emails: Launch review agenda [mail-alice-unread]. Evidence: obs-1, obs-2, obs-3"
+      },
+      "latency_ms": null,
+      "usage": null
+    }
+  ]
+}
