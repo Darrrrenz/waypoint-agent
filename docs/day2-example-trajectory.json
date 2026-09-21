@@ -1,0 +1,1161 @@
+{
+  "environment": "in_memory",
+  "decision_source": "explicit synthetic demo harness",
+  "checkpoint": {
+    "state": {
+      "task": {
+        "id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+        "goal": "Move my meeting with Alice to Friday afternoon.",
+        "created_at": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto",
+          "destination_start": "2026-09-25T13:00:00-04:00",
+          "destination_end": "2026-09-25T17:00:00-04:00",
+          "slot_minutes": 15
+        },
+        "workflow": "reschedule",
+        "calendar_world_id": "74074a38-e44a-4c1a-9af6-470412c31394",
+        "status": "completed",
+        "termination_reason": "verified"
+      },
+      "steps": 5,
+      "model_calls": 5,
+      "errors": 0,
+      "observations": [
+        {
+          "id": "obs-1",
+          "call": {
+            "name": "search_calendar",
+            "arguments": {
+              "participant": "alice@example.com",
+              "start": "2026-09-21T00:00:00-04:00",
+              "end": "2026-09-28T00:00:00-04:00"
+            }
+          },
+          "output": {
+            "meetings": [
+              {
+                "id": "cal-alice-001",
+                "title": "Waypoint launch review with Alice",
+                "start": "2026-09-22T10:00:00-04:00",
+                "end": "2026-09-22T10:30:00-04:00",
+                "participants": [
+                  "me@example.com",
+                  "alice@example.com"
+                ],
+                "topic": "waypoint-launch",
+                "revision": 1
+              }
+            ],
+            "exhaustive": true
+          }
+        },
+        {
+          "id": "obs-2",
+          "call": {
+            "name": "check_availability",
+            "arguments": {
+              "event_id": "cal-alice-001"
+            }
+          },
+          "output": {
+            "event": {
+              "id": "cal-alice-001",
+              "title": "Waypoint launch review with Alice",
+              "start": "2026-09-22T10:00:00-04:00",
+              "end": "2026-09-22T10:30:00-04:00",
+              "participants": [
+                "me@example.com",
+                "alice@example.com"
+              ],
+              "topic": "waypoint-launch",
+              "revision": 1
+            },
+            "start": "2026-09-25T13:00:00-04:00",
+            "end": "2026-09-25T17:00:00-04:00",
+            "slot_minutes": 15,
+            "slots": [
+              {
+                "start": "2026-09-25T13:00:00-04:00",
+                "end": "2026-09-25T13:30:00-04:00"
+              },
+              {
+                "start": "2026-09-25T13:15:00-04:00",
+                "end": "2026-09-25T13:45:00-04:00"
+              },
+              {
+                "start": "2026-09-25T13:30:00-04:00",
+                "end": "2026-09-25T14:00:00-04:00"
+              },
+              {
+                "start": "2026-09-25T13:45:00-04:00",
+                "end": "2026-09-25T14:15:00-04:00"
+              },
+              {
+                "start": "2026-09-25T14:00:00-04:00",
+                "end": "2026-09-25T14:30:00-04:00"
+              },
+              {
+                "start": "2026-09-25T14:15:00-04:00",
+                "end": "2026-09-25T14:45:00-04:00"
+              },
+              {
+                "start": "2026-09-25T14:30:00-04:00",
+                "end": "2026-09-25T15:00:00-04:00"
+              },
+              {
+                "start": "2026-09-25T14:45:00-04:00",
+                "end": "2026-09-25T15:15:00-04:00"
+              },
+              {
+                "start": "2026-09-25T15:00:00-04:00",
+                "end": "2026-09-25T15:30:00-04:00"
+              },
+              {
+                "start": "2026-09-25T15:15:00-04:00",
+                "end": "2026-09-25T15:45:00-04:00"
+              },
+              {
+                "start": "2026-09-25T15:30:00-04:00",
+                "end": "2026-09-25T16:00:00-04:00"
+              },
+              {
+                "start": "2026-09-25T15:45:00-04:00",
+                "end": "2026-09-25T16:15:00-04:00"
+              },
+              {
+                "start": "2026-09-25T16:00:00-04:00",
+                "end": "2026-09-25T16:30:00-04:00"
+              },
+              {
+                "start": "2026-09-25T16:15:00-04:00",
+                "end": "2026-09-25T16:45:00-04:00"
+              },
+              {
+                "start": "2026-09-25T16:30:00-04:00",
+                "end": "2026-09-25T17:00:00-04:00"
+              }
+            ],
+            "exhaustive": true
+          }
+        },
+        {
+          "id": "obs-3",
+          "call": {
+            "name": "update_calendar_event",
+            "arguments": {
+              "event_id": "cal-alice-001",
+              "expected_revision": 1,
+              "start": "2026-09-25T17:00:00Z",
+              "end": "2026-09-25T17:30:00Z"
+            }
+          },
+          "output": {
+            "operation_id": "144ba797-9bb4-45c2-9e72-df50cc6565be",
+            "arguments_hash": "ac34992830228e445079c56b811ca9a0ce5bb40a2ae252b12ce718a25a6a10f0",
+            "event": {
+              "id": "cal-alice-001",
+              "title": "Waypoint launch review with Alice",
+              "start": "2026-09-25T17:00:00Z",
+              "end": "2026-09-25T17:30:00Z",
+              "participants": [
+                "me@example.com",
+                "alice@example.com"
+              ],
+              "topic": "waypoint-launch",
+              "revision": 2
+            }
+          }
+        },
+        {
+          "id": "obs-4",
+          "call": {
+            "name": "read_calendar_event",
+            "arguments": {
+              "event_id": "cal-alice-001"
+            }
+          },
+          "output": {
+            "id": "cal-alice-001",
+            "title": "Waypoint launch review with Alice",
+            "start": "2026-09-25T17:00:00Z",
+            "end": "2026-09-25T17:30:00Z",
+            "participants": [
+              "me@example.com",
+              "alice@example.com"
+            ],
+            "topic": "waypoint-launch",
+            "revision": 2
+          }
+        }
+      ],
+      "feedback": [],
+      "findings": {
+        "outcome": "rescheduled",
+        "meeting_ids": [
+          "cal-alice-001"
+        ],
+        "operation_id": "144ba797-9bb4-45c2-9e72-df50cc6565be",
+        "evidence_ids": [
+          "obs-1",
+          "obs-2",
+          "obs-3",
+          "obs-4"
+        ]
+      },
+      "answer": "Rescheduled Waypoint launch review with Alice [cal-alice-001] to 2026-09-25T17:00:00+00:00\u20132026-09-25T17:30:00+00:00. Verified operation 144ba797-9bb4-45c2-9e72-df50cc6565be.",
+      "approvals": [
+        {
+          "id": "0ca765ae-a57d-4afc-9937-e3b33d99188e",
+          "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+          "calendar_world_id": "74074a38-e44a-4c1a-9af6-470412c31394",
+          "event_id": "cal-alice-001",
+          "call": {
+            "name": "update_calendar_event",
+            "arguments": {
+              "event_id": "cal-alice-001",
+              "expected_revision": 1,
+              "start": "2026-09-25T17:00:00Z",
+              "end": "2026-09-25T17:30:00Z"
+            }
+          },
+          "arguments_hash": "ac34992830228e445079c56b811ca9a0ce5bb40a2ae252b12ce718a25a6a10f0",
+          "expected_revision": 1,
+          "operation_id": "144ba797-9bb4-45c2-9e72-df50cc6565be",
+          "before": {
+            "id": "cal-alice-001",
+            "title": "Waypoint launch review with Alice",
+            "start": "2026-09-22T10:00:00-04:00",
+            "end": "2026-09-22T10:30:00-04:00",
+            "participants": [
+              "me@example.com",
+              "alice@example.com"
+            ],
+            "topic": "waypoint-launch",
+            "revision": 1
+          },
+          "after": {
+            "id": "cal-alice-001",
+            "title": "Waypoint launch review with Alice",
+            "start": "2026-09-25T17:00:00Z",
+            "end": "2026-09-25T17:30:00Z",
+            "participants": [
+              "me@example.com",
+              "alice@example.com"
+            ],
+            "topic": "waypoint-launch",
+            "revision": 2
+          },
+          "decision": "approved",
+          "created_at": "2026-09-21T05:48:20.487987Z",
+          "decided_at": "2026-09-21T05:48:20.488570Z",
+          "resolved_at": "2026-09-21T05:48:20.489836Z",
+          "outcome": "applied"
+        }
+      ],
+      "pending_approval_id": null,
+      "pending_action": null,
+      "executions": [
+        {
+          "approval_id": "0ca765ae-a57d-4afc-9937-e3b33d99188e",
+          "operation_id": "144ba797-9bb4-45c2-9e72-df50cc6565be",
+          "arguments_hash": "ac34992830228e445079c56b811ca9a0ce5bb40a2ae252b12ce718a25a6a10f0",
+          "observation_id": "obs-3",
+          "result": {
+            "operation_id": "144ba797-9bb4-45c2-9e72-df50cc6565be",
+            "arguments_hash": "ac34992830228e445079c56b811ca9a0ce5bb40a2ae252b12ce718a25a6a10f0",
+            "event": {
+              "id": "cal-alice-001",
+              "title": "Waypoint launch review with Alice",
+              "start": "2026-09-25T17:00:00Z",
+              "end": "2026-09-25T17:30:00Z",
+              "participants": [
+                "me@example.com",
+                "alice@example.com"
+              ],
+              "topic": "waypoint-launch",
+              "revision": 2
+            }
+          }
+        }
+      ],
+      "model_kind": "reschedule_demo",
+      "model_config_values": {},
+      "script": null,
+      "dataset": {
+        "clock": "2026-09-20T12:00:00-04:00",
+        "meetings": [
+          {
+            "id": "cal-alice-001",
+            "title": "Waypoint launch review with Alice",
+            "start": "2026-09-22T10:00:00-04:00",
+            "end": "2026-09-22T10:30:00-04:00",
+            "participants": [
+              "me@example.com",
+              "alice@example.com"
+            ],
+            "topic": "waypoint-launch",
+            "revision": 1
+          },
+          {
+            "id": "cal-bob-001",
+            "title": "Launch review with Bob",
+            "start": "2026-09-23T10:00:00-04:00",
+            "end": "2026-09-23T10:30:00-04:00",
+            "participants": [
+              "me@example.com",
+              "bob@example.com"
+            ],
+            "topic": "waypoint-launch",
+            "revision": 1
+          },
+          {
+            "id": "cal-alice-old",
+            "title": "Previous Alice review",
+            "start": "2026-09-18T10:00:00-04:00",
+            "end": "2026-09-18T10:30:00-04:00",
+            "participants": [
+              "alice@example.com"
+            ],
+            "topic": "waypoint-launch",
+            "revision": 1
+          },
+          {
+            "id": "cal-alice-later",
+            "title": "Later Alice review",
+            "start": "2026-09-28T00:00:00-04:00",
+            "end": "2026-09-28T00:30:00-04:00",
+            "participants": [
+              "alice@example.com"
+            ],
+            "topic": "waypoint-launch",
+            "revision": 1
+          }
+        ],
+        "emails": [
+          {
+            "id": "mail-alice-unread",
+            "subject": "Launch review agenda",
+            "participants": [
+              "alice@example.com",
+              "me@example.com"
+            ],
+            "topic": "waypoint-launch",
+            "unread": true,
+            "sent_at": "2026-09-19T14:00:00-04:00",
+            "body": "Please review the launch checklist before our Tuesday meeting."
+          },
+          {
+            "id": "mail-alice-read",
+            "subject": "Launch review invitation",
+            "participants": [
+              "alice@example.com",
+              "me@example.com"
+            ],
+            "topic": "waypoint-launch",
+            "unread": false,
+            "sent_at": "2026-09-17T14:00:00-04:00",
+            "body": "Our review is scheduled for Tuesday."
+          },
+          {
+            "id": "mail-alice-unrelated",
+            "subject": "Dinner plans",
+            "participants": [
+              "alice@example.com",
+              "me@example.com"
+            ],
+            "topic": "weekend-dinner",
+            "unread": true,
+            "sent_at": "2026-09-19T16:00:00-04:00",
+            "body": "Are you free for dinner?"
+          },
+          {
+            "id": "mail-bob-unread",
+            "subject": "Bob launch notes",
+            "participants": [
+              "bob@example.com",
+              "me@example.com"
+            ],
+            "topic": "waypoint-launch",
+            "unread": true,
+            "sent_at": "2026-09-19T15:00:00-04:00",
+            "body": "Notes for our separate review."
+          }
+        ]
+      },
+      "limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "active_seconds": 0.015204200055450201,
+      "reserved_seconds": 0.0,
+      "read_attempts": 0,
+      "replan_after_observation": 0
+    },
+    "last_sequence": 29
+  },
+  "events": [
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 1,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "task_started",
+      "data": {
+        "goal": "Move my meeting with Alice to Friday afternoon.",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto",
+          "destination_start": "2026-09-25T13:00:00-04:00",
+          "destination_end": "2026-09-25T17:00:00-04:00",
+          "slot_minutes": 15
+        }
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 2,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "model_requested",
+      "data": {
+        "step": 1
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 3,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "model_response",
+      "data": {
+        "action": {
+          "kind": "call_tool",
+          "call": {
+            "name": "search_calendar",
+            "arguments": {
+              "participant": "alice@example.com",
+              "start": "2026-09-21T00:00:00-04:00",
+              "end": "2026-09-28T00:00:00-04:00"
+            }
+          }
+        }
+      },
+      "latency_ms": 2.355900011025369,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 4,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "tool_requested",
+      "data": {
+        "name": "search_calendar",
+        "arguments": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00"
+        }
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 5,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "read_attempt",
+      "data": {
+        "attempt": 1
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 6,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "tool_result",
+      "data": {
+        "id": "obs-1",
+        "call": {
+          "name": "search_calendar",
+          "arguments": {
+            "participant": "alice@example.com",
+            "start": "2026-09-21T00:00:00-04:00",
+            "end": "2026-09-28T00:00:00-04:00"
+          }
+        },
+        "output": {
+          "meetings": [
+            {
+              "id": "cal-alice-001",
+              "title": "Waypoint launch review with Alice",
+              "start": "2026-09-22T10:00:00-04:00",
+              "end": "2026-09-22T10:30:00-04:00",
+              "participants": [
+                "me@example.com",
+                "alice@example.com"
+              ],
+              "topic": "waypoint-launch",
+              "revision": 1
+            }
+          ],
+          "exhaustive": true
+        }
+      },
+      "latency_ms": 0.07399998139590025,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 7,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "model_requested",
+      "data": {
+        "step": 2
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 8,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "model_response",
+      "data": {
+        "action": {
+          "kind": "call_tool",
+          "call": {
+            "name": "check_availability",
+            "arguments": {
+              "event_id": "cal-alice-001"
+            }
+          }
+        }
+      },
+      "latency_ms": 1.819099998101592,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 9,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "tool_requested",
+      "data": {
+        "name": "check_availability",
+        "arguments": {
+          "event_id": "cal-alice-001"
+        }
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 10,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "read_attempt",
+      "data": {
+        "attempt": 1
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 11,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "tool_result",
+      "data": {
+        "id": "obs-2",
+        "call": {
+          "name": "check_availability",
+          "arguments": {
+            "event_id": "cal-alice-001"
+          }
+        },
+        "output": {
+          "event": {
+            "id": "cal-alice-001",
+            "title": "Waypoint launch review with Alice",
+            "start": "2026-09-22T10:00:00-04:00",
+            "end": "2026-09-22T10:30:00-04:00",
+            "participants": [
+              "me@example.com",
+              "alice@example.com"
+            ],
+            "topic": "waypoint-launch",
+            "revision": 1
+          },
+          "start": "2026-09-25T13:00:00-04:00",
+          "end": "2026-09-25T17:00:00-04:00",
+          "slot_minutes": 15,
+          "slots": [
+            {
+              "start": "2026-09-25T13:00:00-04:00",
+              "end": "2026-09-25T13:30:00-04:00"
+            },
+            {
+              "start": "2026-09-25T13:15:00-04:00",
+              "end": "2026-09-25T13:45:00-04:00"
+            },
+            {
+              "start": "2026-09-25T13:30:00-04:00",
+              "end": "2026-09-25T14:00:00-04:00"
+            },
+            {
+              "start": "2026-09-25T13:45:00-04:00",
+              "end": "2026-09-25T14:15:00-04:00"
+            },
+            {
+              "start": "2026-09-25T14:00:00-04:00",
+              "end": "2026-09-25T14:30:00-04:00"
+            },
+            {
+              "start": "2026-09-25T14:15:00-04:00",
+              "end": "2026-09-25T14:45:00-04:00"
+            },
+            {
+              "start": "2026-09-25T14:30:00-04:00",
+              "end": "2026-09-25T15:00:00-04:00"
+            },
+            {
+              "start": "2026-09-25T14:45:00-04:00",
+              "end": "2026-09-25T15:15:00-04:00"
+            },
+            {
+              "start": "2026-09-25T15:00:00-04:00",
+              "end": "2026-09-25T15:30:00-04:00"
+            },
+            {
+              "start": "2026-09-25T15:15:00-04:00",
+              "end": "2026-09-25T15:45:00-04:00"
+            },
+            {
+              "start": "2026-09-25T15:30:00-04:00",
+              "end": "2026-09-25T16:00:00-04:00"
+            },
+            {
+              "start": "2026-09-25T15:45:00-04:00",
+              "end": "2026-09-25T16:15:00-04:00"
+            },
+            {
+              "start": "2026-09-25T16:00:00-04:00",
+              "end": "2026-09-25T16:30:00-04:00"
+            },
+            {
+              "start": "2026-09-25T16:15:00-04:00",
+              "end": "2026-09-25T16:45:00-04:00"
+            },
+            {
+              "start": "2026-09-25T16:30:00-04:00",
+              "end": "2026-09-25T17:00:00-04:00"
+            }
+          ],
+          "exhaustive": true
+        }
+      },
+      "latency_ms": 0.20539993420243263,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 12,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "model_requested",
+      "data": {
+        "step": 3
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 13,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "model_response",
+      "data": {
+        "action": {
+          "kind": "call_tool",
+          "call": {
+            "name": "update_calendar_event",
+            "arguments": {
+              "event_id": "cal-alice-001",
+              "expected_revision": 1,
+              "start": "2026-09-25T13:00:00-04:00",
+              "end": "2026-09-25T13:30:00-04:00"
+            }
+          }
+        }
+      },
+      "latency_ms": 1.9877000013366342,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 14,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "tool_requested",
+      "data": {
+        "name": "update_calendar_event",
+        "arguments": {
+          "event_id": "cal-alice-001",
+          "expected_revision": 1,
+          "start": "2026-09-25T13:00:00-04:00",
+          "end": "2026-09-25T13:30:00-04:00"
+        }
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 15,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "proposal_validation",
+      "data": {
+        "name": "update_calendar_event",
+        "arguments": {
+          "event_id": "cal-alice-001",
+          "expected_revision": 1,
+          "start": "2026-09-25T13:00:00-04:00",
+          "end": "2026-09-25T13:30:00-04:00"
+        }
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 16,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "approval_requested",
+      "data": {
+        "id": "0ca765ae-a57d-4afc-9937-e3b33d99188e",
+        "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+        "calendar_world_id": "74074a38-e44a-4c1a-9af6-470412c31394",
+        "event_id": "cal-alice-001",
+        "call": {
+          "name": "update_calendar_event",
+          "arguments": {
+            "event_id": "cal-alice-001",
+            "expected_revision": 1,
+            "start": "2026-09-25T17:00:00Z",
+            "end": "2026-09-25T17:30:00Z"
+          }
+        },
+        "arguments_hash": "ac34992830228e445079c56b811ca9a0ce5bb40a2ae252b12ce718a25a6a10f0",
+        "expected_revision": 1,
+        "operation_id": "144ba797-9bb4-45c2-9e72-df50cc6565be",
+        "before": {
+          "id": "cal-alice-001",
+          "title": "Waypoint launch review with Alice",
+          "start": "2026-09-22T10:00:00-04:00",
+          "end": "2026-09-22T10:30:00-04:00",
+          "participants": [
+            "me@example.com",
+            "alice@example.com"
+          ],
+          "topic": "waypoint-launch",
+          "revision": 1
+        },
+        "after": {
+          "id": "cal-alice-001",
+          "title": "Waypoint launch review with Alice",
+          "start": "2026-09-25T17:00:00Z",
+          "end": "2026-09-25T17:30:00Z",
+          "participants": [
+            "me@example.com",
+            "alice@example.com"
+          ],
+          "topic": "waypoint-launch",
+          "revision": 2
+        },
+        "decision": "pending",
+        "created_at": "2026-09-21T05:48:20.487987Z",
+        "decided_at": null,
+        "resolved_at": null,
+        "outcome": null
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 17,
+      "timestamp": "2026-09-21T05:48:20.488580Z",
+      "kind": "approval_decided",
+      "data": {
+        "id": "0ca765ae-a57d-4afc-9937-e3b33d99188e",
+        "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+        "calendar_world_id": "74074a38-e44a-4c1a-9af6-470412c31394",
+        "event_id": "cal-alice-001",
+        "call": {
+          "name": "update_calendar_event",
+          "arguments": {
+            "event_id": "cal-alice-001",
+            "expected_revision": 1,
+            "start": "2026-09-25T17:00:00Z",
+            "end": "2026-09-25T17:30:00Z"
+          }
+        },
+        "arguments_hash": "ac34992830228e445079c56b811ca9a0ce5bb40a2ae252b12ce718a25a6a10f0",
+        "expected_revision": 1,
+        "operation_id": "144ba797-9bb4-45c2-9e72-df50cc6565be",
+        "before": {
+          "id": "cal-alice-001",
+          "title": "Waypoint launch review with Alice",
+          "start": "2026-09-22T10:00:00-04:00",
+          "end": "2026-09-22T10:30:00-04:00",
+          "participants": [
+            "me@example.com",
+            "alice@example.com"
+          ],
+          "topic": "waypoint-launch",
+          "revision": 1
+        },
+        "after": {
+          "id": "cal-alice-001",
+          "title": "Waypoint launch review with Alice",
+          "start": "2026-09-25T17:00:00Z",
+          "end": "2026-09-25T17:30:00Z",
+          "participants": [
+            "me@example.com",
+            "alice@example.com"
+          ],
+          "topic": "waypoint-launch",
+          "revision": 2
+        },
+        "decision": "approved",
+        "created_at": "2026-09-21T05:48:20.487987Z",
+        "decided_at": "2026-09-21T05:48:20.488570Z",
+        "resolved_at": null,
+        "outcome": null
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 18,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "task_resumed",
+      "data": {
+        "goal": "Move my meeting with Alice to Friday afternoon.",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto",
+          "destination_start": "2026-09-25T13:00:00-04:00",
+          "destination_end": "2026-09-25T17:00:00-04:00",
+          "slot_minutes": 15
+        }
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 19,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "operation_reconcile",
+      "data": {
+        "operation_id": "144ba797-9bb4-45c2-9e72-df50cc6565be"
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 20,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "operation_requested",
+      "data": {
+        "operation_id": "144ba797-9bb4-45c2-9e72-df50cc6565be"
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 21,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "tool_result",
+      "data": {
+        "id": "obs-3",
+        "call": {
+          "name": "update_calendar_event",
+          "arguments": {
+            "event_id": "cal-alice-001",
+            "expected_revision": 1,
+            "start": "2026-09-25T17:00:00Z",
+            "end": "2026-09-25T17:30:00Z"
+          }
+        },
+        "output": {
+          "operation_id": "144ba797-9bb4-45c2-9e72-df50cc6565be",
+          "arguments_hash": "ac34992830228e445079c56b811ca9a0ce5bb40a2ae252b12ce718a25a6a10f0",
+          "event": {
+            "id": "cal-alice-001",
+            "title": "Waypoint launch review with Alice",
+            "start": "2026-09-25T17:00:00Z",
+            "end": "2026-09-25T17:30:00Z",
+            "participants": [
+              "me@example.com",
+              "alice@example.com"
+            ],
+            "topic": "waypoint-launch",
+            "revision": 2
+          }
+        }
+      },
+      "latency_ms": 0.4168000305071473,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 22,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "model_requested",
+      "data": {
+        "step": 4
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 23,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "model_response",
+      "data": {
+        "action": {
+          "kind": "call_tool",
+          "call": {
+            "name": "read_calendar_event",
+            "arguments": {
+              "event_id": "cal-alice-001"
+            }
+          }
+        }
+      },
+      "latency_ms": 2.4987999349832535,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 24,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "tool_requested",
+      "data": {
+        "name": "read_calendar_event",
+        "arguments": {
+          "event_id": "cal-alice-001"
+        }
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 25,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "read_attempt",
+      "data": {
+        "attempt": 1
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 26,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "tool_result",
+      "data": {
+        "id": "obs-4",
+        "call": {
+          "name": "read_calendar_event",
+          "arguments": {
+            "event_id": "cal-alice-001"
+          }
+        },
+        "output": {
+          "id": "cal-alice-001",
+          "title": "Waypoint launch review with Alice",
+          "start": "2026-09-25T17:00:00Z",
+          "end": "2026-09-25T17:30:00Z",
+          "participants": [
+            "me@example.com",
+            "alice@example.com"
+          ],
+          "topic": "waypoint-launch",
+          "revision": 2
+        }
+      },
+      "latency_ms": 0.06029999349266291,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 27,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "model_requested",
+      "data": {
+        "step": 5
+      },
+      "latency_ms": null,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 28,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "model_response",
+      "data": {
+        "action": {
+          "kind": "propose_completion",
+          "findings": {
+            "outcome": "rescheduled",
+            "meeting_ids": [
+              "cal-alice-001"
+            ],
+            "operation_id": "144ba797-9bb4-45c2-9e72-df50cc6565be",
+            "evidence_ids": [
+              "obs-1",
+              "obs-2",
+              "obs-3",
+              "obs-4"
+            ]
+          }
+        }
+      },
+      "latency_ms": 2.066600020043552,
+      "usage": null
+    },
+    {
+      "task_id": "1511522b-92ca-49cc-adf6-9e498cea339b",
+      "sequence": 29,
+      "timestamp": "2026-09-20T12:00:00-04:00",
+      "kind": "completion_verified",
+      "data": {
+        "accepted": true,
+        "reasons": [],
+        "answer": "Rescheduled Waypoint launch review with Alice [cal-alice-001] to 2026-09-25T17:00:00+00:00\u20132026-09-25T17:30:00+00:00. Verified operation 144ba797-9bb4-45c2-9e72-df50cc6565be."
+      },
+      "latency_ms": null,
+      "usage": null
+    }
+  ],
+  "calendar_before": [
+    {
+      "id": "cal-alice-001",
+      "title": "Waypoint launch review with Alice",
+      "start": "2026-09-22T10:00:00-04:00",
+      "end": "2026-09-22T10:30:00-04:00",
+      "participants": [
+        "me@example.com",
+        "alice@example.com"
+      ],
+      "topic": "waypoint-launch",
+      "revision": 1
+    },
+    {
+      "id": "cal-bob-001",
+      "title": "Launch review with Bob",
+      "start": "2026-09-23T10:00:00-04:00",
+      "end": "2026-09-23T10:30:00-04:00",
+      "participants": [
+        "me@example.com",
+        "bob@example.com"
+      ],
+      "topic": "waypoint-launch",
+      "revision": 1
+    },
+    {
+      "id": "cal-alice-old",
+      "title": "Previous Alice review",
+      "start": "2026-09-18T10:00:00-04:00",
+      "end": "2026-09-18T10:30:00-04:00",
+      "participants": [
+        "alice@example.com"
+      ],
+      "topic": "waypoint-launch",
+      "revision": 1
+    },
+    {
+      "id": "cal-alice-later",
+      "title": "Later Alice review",
+      "start": "2026-09-28T00:00:00-04:00",
+      "end": "2026-09-28T00:30:00-04:00",
+      "participants": [
+        "alice@example.com"
+      ],
+      "topic": "waypoint-launch",
+      "revision": 1
+    }
+  ],
+  "calendar_after": [
+    {
+      "id": "cal-alice-001",
+      "title": "Waypoint launch review with Alice",
+      "start": "2026-09-25T17:00:00Z",
+      "end": "2026-09-25T17:30:00Z",
+      "participants": [
+        "me@example.com",
+        "alice@example.com"
+      ],
+      "topic": "waypoint-launch",
+      "revision": 2
+    },
+    {
+      "id": "cal-bob-001",
+      "title": "Launch review with Bob",
+      "start": "2026-09-23T10:00:00-04:00",
+      "end": "2026-09-23T10:30:00-04:00",
+      "participants": [
+        "me@example.com",
+        "bob@example.com"
+      ],
+      "topic": "waypoint-launch",
+      "revision": 1
+    },
+    {
+      "id": "cal-alice-old",
+      "title": "Previous Alice review",
+      "start": "2026-09-18T10:00:00-04:00",
+      "end": "2026-09-18T10:30:00-04:00",
+      "participants": [
+        "alice@example.com"
+      ],
+      "topic": "waypoint-launch",
+      "revision": 1
+    },
+    {
+      "id": "cal-alice-later",
+      "title": "Later Alice review",
+      "start": "2026-09-28T00:00:00-04:00",
+      "end": "2026-09-28T00:30:00-04:00",
+      "participants": [
+        "alice@example.com"
+      ],
+      "topic": "waypoint-launch",
+      "revision": 1
+    }
+  ]
+}
