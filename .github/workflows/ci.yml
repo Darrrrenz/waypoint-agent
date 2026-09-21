@@ -31,7 +31,10 @@ jobs:
       - run: uv run pytest -q
       - run: uv run waypoint-agent init-db
       - run: uv run waypoint-agent run --export artifacts/trajectory.json
+      - run: uv run python scripts/export_reschedule.py --output artifacts/reschedule-trajectory.json
+      - run: uv run pre-commit run --all-files
+      - run: uv build
       - uses: actions/upload-artifact@v4
         with:
           name: trajectory-${{ matrix.python }}
-          path: artifacts/trajectory.json
+          path: artifacts/*.json

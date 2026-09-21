@@ -1,5 +1,6 @@
 import asyncio
 from datetime import timedelta
+from pathlib import Path
 from uuid import uuid4
 
 import pytest
@@ -13,6 +14,8 @@ from waypoint_agent.runtime import Runtime
 from waypoint_agent.schemas import AgentState, Task
 from waypoint_agent.storage.memory import MemoryRepository
 from waypoint_agent.tools.calendar import calendar_tools
+
+ROOT = Path(__file__).resolve().parents[2]
 
 
 async def setup(data, repository=None, store=None, **limits):
@@ -431,3 +434,68 @@ async def test_http_reschedule_schema_and_full_flow(data):
     await approve(repo, waiting)
     assert (await live().resume(state.task.id)).state.task.status == "completed"
     assert calls == 5
+
+
+async def test_finite_script_resumes_approved_action_and_completes(data):
+    import json
+
+    from waypoint_agent.models.scripted import ScriptedModel
+
+    state, repo, store, fresh = await setup(data)
+    runtime = fresh()
+    script = ROOT / "fixtures/reschedule-script.json"
+    runtime.model = ScriptedModel(json.loads(script.read_text(encoding="utf-8")))
+    waiting = await runtime.run(state)
+    assert waiting.state.model_calls == 3
+    await approve(repo, waiting)
+    result = await fresh().resume(state.task.id)
+    assert result.state.task.status == "completed"
+    assert result.state.model_calls == 5
+    assert len(store.operations) == 1
+
+
+async def test_transient_read_exhaustion_is_bounded(data):
+    state, _, _, fresh = await setup(data, max_errors=1, retry_backoff=0)
+    runtime = fresh()
+    attempts = 0
+
+    async def unavailable(arguments):
+        nonlocal attempts
+        attempts += 1
+        raise TransientReadError("Unavailable")
+
+    runtime.tools.get("search_calendar").execute = unavailable
+    result = await runtime.run(state)
+    assert result.state.task.termination_reason == "error_budget"
+    assert result.state.model_calls == 1
+    assert attempts == 3
+
+
+@pytest.mark.parametrize("field", ["operation_id", "approval_id"])
+async def test_model_cannot_supply_authorization_metadata(data, field):
+    from waypoint_agent.models.scripted import ScriptedModel
+
+    state, _, store, fresh = await setup(data, max_errors=1)
+    ctx = state.task.context
+    runtime = fresh()
+    runtime.model = ScriptedModel(
+        [
+            {
+                "kind": "call_tool",
+                "call": {
+                    "name": "update_calendar_event",
+                    "arguments": {
+                        "event_id": data.meetings[0].id,
+                        "expected_revision": 1,
+                        "start": ctx.destination_start.isoformat(),
+                        "end": (ctx.destination_start + timedelta(minutes=30)).isoformat(),
+                        field: str(uuid4()),
+                    },
+                },
+            }
+        ]
+    )
+    result = await runtime.run(state)
+    assert result.state.task.status == "failed"
+    assert not result.state.approvals
+    assert not store.operations

@@ -1,5 +1,3 @@
-import os
-
 import psycopg
 import pytest
 from psycopg.types.json import Jsonb
@@ -8,16 +6,6 @@ from waypoint_agent.schemas import Checkpoint, TrajectoryEvent
 from waypoint_agent.storage.postgres import PostgresRepository
 
 pytestmark = pytest.mark.integration
-
-
-@pytest.fixture
-async def repository():
-    url = os.environ.get("WAYPOINT_TEST_DATABASE_URL")
-    if not url:
-        pytest.skip("Set WAYPOINT_TEST_DATABASE_URL to run real PostgreSQL integration tests")
-    repo = PostgresRepository(url)
-    await repo.initialize()
-    return repo
 
 
 async def test_saved_workflow_loads_in_new_repository(repository, state, script, make_runtime):
