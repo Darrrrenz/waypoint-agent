@@ -197,3 +197,237 @@ async def test_concurrent_resumes_apply_once(data):
     assert all(not isinstance(r, Exception) or "busy" in str(r) for r in results)
     assert len(store.operations) == 1
     assert (await store.events(state.task.calendar_world_id))[0].revision == 2
+
+
+class CrashAfterCommit(MemoryRepository):
+    crash = True
+
+    async def save(self, checkpoint, event):
+        if (
+            self.crash
+            and event.kind == "tool_result"
+            and event.data["call"]["name"] == "update_calendar_event"
+        ):
+            self.crash = False
+            raise OSError("Process died before observation checkpoint")
+        await super().save(checkpoint, event)
+
+
+async def test_crash_after_commit_reconciles_without_another_write(data):
+    state, repo, store, fresh = await setup(data, repository=CrashAfterCommit())
+    waiting = await fresh().run(state)
+    await approve(repo, waiting)
+    with pytest.raises(OSError):
+        await fresh().resume(state.task.id)
+    assert len(store.operations) == 1
+    durable, _ = await repo.load(state.task.id)
+    assert not durable.state.executions
+    assert durable.state.task.status == "running"
+
+    async def must_not_write(*args):
+        pytest.fail("Committed operation was executed twice")
+
+    store.update = must_not_write
+    result = await fresh().resume(state.task.id)
+    assert result.state.task.status == "completed"
+    assert (
+        result.state.active_seconds >= durable.state.active_seconds + durable.state.reserved_seconds
+    )
+    assert len(result.state.executions) == 1
+    assert (await store.events(state.task.calendar_world_id))[0].revision == 2
+
+
+@pytest.mark.parametrize("committed", [False, True])
+async def test_uncertain_write_is_unresolved_then_reconciles(data, committed):
+    state, repo, store, fresh = await setup(data)
+    waiting = await fresh().run(state)
+    await approve(repo, waiting)
+    real = store.update
+
+    async def uncertain(*args):
+        if committed:
+            await real(*args)
+        raise OSError("Connection lost")
+
+    store.update = uncertain
+    result = await fresh().resume(state.task.id)
+    assert result.state.task.status == "unresolved"
+    assert result.state.answer is None
+    assert not result.state.executions
+    assert len(store.operations) == int(committed)
+    store.update = real
+    result = await fresh().resume(state.task.id)
+    assert result.state.task.status == "completed"
+    assert len(store.operations) == 1
+
+
+async def test_ledger_unavailable_never_retries_write(data):
+    state, repo, store, fresh = await setup(data)
+    waiting = await fresh().run(state)
+    await approve(repo, waiting)
+
+    async def unavailable(*args):
+        raise OSError("Ledger offline")
+
+    store.lookup = unavailable
+    for _ in range(2):
+        assert (await fresh().resume(state.task.id)).state.task.status == "unresolved"
+    assert not store.operations
+
+
+async def test_script_and_pending_action_survive_restart(data):
+    from waypoint_agent.models.scripted import ScriptedModel
+
+    class InterruptRead(MemoryRepository):
+        crash = True
+
+        async def save(self, checkpoint, event):
+            await super().save(checkpoint, event)
+            if self.crash and event.kind == "model_response":
+                self.crash = False
+                raise OSError("Process interrupted after saving response")
+
+    state, repo, _, fresh = await setup(data, repository=InterruptRead())
+    # Capture a demo action sequence; use a finite script across fresh runtimes.
+    demo_state, demo_repo, _, demo_fresh = await setup(data)
+    await demo_fresh().run(demo_state)
+    _, events = await demo_repo.load(demo_state.task.id)
+    script = [e.data["action"] for e in events if e.kind == "model_response"]
+    runtime = fresh()
+    runtime.model = ScriptedModel(script)
+    with pytest.raises(OSError):
+        await runtime.run(state)
+    saved, _ = await repo.load(state.task.id)
+    assert saved.state.model_calls == 1
+    assert saved.state.pending_action == script[0]
+    result = await fresh().resume(state.task.id)
+    assert result.state.task.status == "waiting_for_approval"
+    assert result.state.model_calls == 3
+    _, events = await repo.load(state.task.id)
+    assert len([e for e in events if e.kind == "model_requested"]) == 3
+
+
+async def test_budgets_are_persisted_and_cannot_be_reset_on_resume(data):
+    state, repo, store, fresh = await setup(data, max_model_calls=3)
+    waiting = await fresh().run(state)
+    await approve(repo, waiting)
+    runtime = fresh()
+    runtime.settings.max_model_calls = 100
+    result = await runtime.resume(state.task.id)
+    assert result.state.task.status == "limited"
+    assert result.state.task.termination_reason == "max_model_calls"
+    assert result.state.model_calls == 3
+    assert result.state.answer is None  # Applied but not verified; no success claim.
+    assert len(store.operations) == 1
+    assert await fresh().resume(state.task.id) == result
+
+
+async def test_expired_approved_task_cannot_write(data):
+    state, repo, store, fresh = await setup(data)
+    waiting = await fresh().run(state)
+    await approve(repo, waiting)
+    repo.records[state.task.id][0].state.active_seconds = 120
+    result = await fresh().resume(state.task.id)
+    assert result.state.task.termination_reason == "deadline"
+    assert not store.operations
+
+
+async def test_wait_time_does_not_consume_execution_budget(data):
+    state, repo, _, fresh = await setup(data)
+    waiting = await fresh().run(state)
+    await asyncio.sleep(0.02)
+    assert (
+        await fresh().resume(state.task.id)
+    ).state.active_seconds == waiting.state.active_seconds
+    await approve(repo, waiting)
+    assert (await fresh().resume(state.task.id)).state.task.status == "completed"
+
+
+@pytest.mark.parametrize("tamper", ["read", "operation", "fields", "provenance", "order"])
+async def test_completion_requires_exact_execution_and_subsequent_read(data, tamper):
+    state, repo, _, fresh = await setup(data)
+    waiting = await fresh().run(state)
+    await approve(repo, waiting)
+    result = (await fresh().resume(state.task.id)).state
+    if tamper == "read":
+        result.observations[-1].output["start"] = "2026-09-25T17:15:00Z"
+    elif tamper == "operation":
+        result.findings.operation_id = str(uuid4())
+    elif tamper == "fields":
+        result.executions[0].result["event"]["title"] = "Changed without approval"
+    elif tamper == "provenance":
+        result.executions = []
+    else:
+        result.observations[-1], result.observations[-2] = (
+            result.observations[-2],
+            result.observations[-1],
+        )
+    assert not RescheduleEvaluator().verify(result, result.findings).accepted
+
+
+async def test_failed_approval_checkpoint_is_fatal_and_never_mutates(data):
+    class Broken(MemoryRepository):
+        async def save(self, checkpoint, event):
+            if event.kind == "approval_requested":
+                raise OSError("Storage offline")
+            await super().save(checkpoint, event)
+
+    state, repo, store, fresh = await setup(data, repository=Broken())
+    with pytest.raises(OSError):
+        await fresh().run(state)
+    saved, _ = await repo.load(state.task.id)
+    assert not saved.state.approvals
+    assert not store.operations
+
+
+async def test_permission_policy_fails_closed(data):
+    from waypoint_agent.tools.registry import Registry
+
+    state, _, _, fresh = await setup(data)
+    tool = fresh().tools.get("search_calendar")
+    tool.risk_level = "arbitrary_write"
+    with pytest.raises(PermissionError):
+        Registry([tool])
+
+
+async def test_http_reschedule_schema_and_full_flow(data):
+    import json
+
+    import httpx
+    from pydantic import SecretStr
+
+    from waypoint_agent.models.openai_compatible import OpenAICompatibleModel
+    from waypoint_agent.schemas import RescheduleFindings
+
+    state, repo, _, fresh = await setup(data)
+    calls = 0
+
+    async def handler(request):
+        nonlocal calls
+        calls += 1
+        body = json.loads(request.content)
+        assert body["tools"][-1]["function"]["parameters"] == RescheduleFindings.model_json_schema()
+        supplied = json.loads(body["messages"][1]["content"])
+        persisted = AgentState.model_validate(supplied["state"])
+        action = (await RescheduleDemoModel().next_action(persisted, [])).action
+        function = (
+            {"name": action["call"]["name"], "arguments": json.dumps(action["call"]["arguments"])}
+            if action["kind"] == "call_tool"
+            else {"name": "propose_completion", "arguments": json.dumps(action["findings"])}
+        )
+        return httpx.Response(
+            200, json={"choices": [{"message": {"tool_calls": [{"function": function}]}}]}
+        )
+
+    def live():
+        runtime = fresh()
+        runtime.model = OpenAICompatibleModel(
+            Settings(_env_file=None, api_key=SecretStr("test")),
+            transport=httpx.MockTransport(handler),
+        )
+        return runtime
+
+    waiting = await live().run(state)
+    await approve(repo, waiting)
+    assert (await live().resume(state.task.id)).state.task.status == "completed"
+    assert calls == 5

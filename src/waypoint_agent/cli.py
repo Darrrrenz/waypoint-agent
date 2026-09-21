@@ -27,6 +27,7 @@ DEFAULT_GOAL = (
 
 
 def runtime_for(state, repository, store, settings):
+    settings = settings.model_copy(update={**state.limits, **state.model_config_values})
     dataset = Dataset.model_validate(state.dataset)
     if state.model_kind == "live":
         model = OpenAICompatibleModel(settings)
@@ -130,6 +131,7 @@ async def dispatch(args):
                 calendar_world_id=world,
             ),
             dataset=dataset.model_dump(mode="json"),
+            model_config_values={"model": settings.model, "base_url": settings.base_url},
             model_kind=(
                 "live"
                 if args.model == "live"

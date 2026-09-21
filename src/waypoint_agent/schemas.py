@@ -164,6 +164,7 @@ class AgentState(Schema):
     pending_action: Any = None
     executions: list[ExecutionRecord] = Field(default_factory=list)
     model_kind: Literal["scripted", "reschedule_demo", "live"] = "scripted"
+    model_config_values: dict[str, str] = Field(default_factory=dict)
     script: list[Any] | None = None
     dataset: dict[str, Any] | None = None
     limits: dict[str, Any] = Field(default_factory=dict)

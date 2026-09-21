@@ -51,6 +51,9 @@ class Runtime:
         state.limits = {key: getattr(self.settings, key) for key in LIMIT_FIELDS}
         if hasattr(self.model, "actions"):
             state.script = self.model.actions
+        if hasattr(self.repository, "task_lock"):
+            async with self.repository.task_lock(state.task.id):
+                return await self._continue(Checkpoint(state=state), resumed=False)
         return await self._continue(Checkpoint(state=state), resumed=False)
 
     async def resume(self, task_id):
@@ -77,11 +80,19 @@ class Runtime:
 
             evaluator = RescheduleEvaluator()
             update_tool = self.tools.get("update_calendar_event")
-            if (
-                update_tool.world != state.task.calendar_world_id
-                or update_tool.context != state.task.context
+            for name in (
+                "search_calendar",
+                "read_calendar_event",
+                "check_availability",
+                "update_calendar_event",
             ):
-                raise PermissionError("Calendar tools do not match the persisted task")
+                tool = self.tools.get(name)
+                if (
+                    tool.world != state.task.calendar_world_id
+                    or tool.context != state.task.context
+                    or tool.store is not update_tool.store
+                ):
+                    raise PermissionError("Calendar tools do not match the persisted task")
         else:
             evaluator = self.evaluator
         # A crashed in-flight call is charged its full reservation on restart.
@@ -185,18 +196,29 @@ class Runtime:
             if request.decision != "approved":
                 raise PermissionError("Human approval required")
             tool = self.tools.get(request.call.name)
-            reserve(settings.tool_timeout)
+            reserve(settings.storage_timeout)
             await record("operation_reconcile", {"operation_id": str(request.operation_id)})
             try:
-                result = await invoke(
-                    tool.store.lookup(tool.world, request.operation_id, request.call.arguments),
-                    settings.tool_timeout,
-                )
+                # Reconciliation may establish an already committed result even after the
+                # execution deadline. It cannot perform a mutation or report completion.
+                async with asyncio.timeout(settings.storage_timeout):
+                    result = await tool.store.lookup(
+                        tool.world, request.operation_id, request.call.arguments
+                    )
             except Exception as exc:
+                state.reserved_seconds = 0
+                state.errors += 1
                 state.task.status = "unresolved"
                 await record("operation_unresolved", details(exc))
                 return False
+            state.reserved_seconds = 0
             if result is None:
+                if monotonic() >= deadline or state.errors >= settings.max_errors:
+                    reason = "deadline" if monotonic() >= deadline else "error_budget"
+                    state.task.status = "limited" if reason == "deadline" else "failed"
+                    state.task.termination_reason = reason
+                    await record("task_terminated", {"reason": reason, "operation_absent": True})
+                    return False
                 reserve(settings.tool_timeout)
                 await record("operation_requested", {"operation_id": str(request.operation_id)})
                 try:
@@ -223,6 +245,7 @@ class Runtime:
                     return True
                 except Exception as exc:
                     # No blind retry: a later resume reconciles the same operation first.
+                    state.errors += 1
                     state.task.status = "unresolved"
                     await record("operation_unresolved", details(exc))
                     return False

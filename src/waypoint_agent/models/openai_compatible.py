@@ -66,7 +66,9 @@ class OpenAICompatibleModel:
                             "role": "user",
                             "content": json.dumps(
                                 {
-                                    "state": state.model_dump(mode="json"),
+                                    "state": state.model_dump(
+                                        mode="json", exclude={"dataset", "script"}
+                                    ),
                                     "tools": tools,
                                 }
                             ),
