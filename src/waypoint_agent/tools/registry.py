@@ -8,8 +8,18 @@ class Registry:
         self.tools = {tool.name: tool for tool in tools}
         if len(self.tools) != len(tools):
             raise ValueError("Duplicate tool names")
-        if any(tool.risk_level != "read_only" for tool in tools):
-            raise ValueError("Day 1 only allows read-only tools")
+        for tool in tools:
+            self.permission(tool)
+
+    @staticmethod
+    def permission(tool):
+        from waypoint_agent.tools.calendar import UpdateCalendarEvent
+
+        if tool.risk_level == "read_only" and tool.name != "update_calendar_event":
+            return "read_only"
+        if type(tool) is UpdateCalendarEvent and tool.risk_level == "approval_required":
+            return "approval_required"
+        raise PermissionError("Unsupported tool permission")
 
     def describe(self) -> list[dict[str, Any]]:
         return [
@@ -26,4 +36,6 @@ class Registry:
     def get(self, name: str) -> Tool:
         if name not in self.tools:
             raise ValueError(f"Unknown tool: {name}")
-        return self.tools[name]
+        tool = self.tools[name]
+        self.permission(tool)
+        return tool

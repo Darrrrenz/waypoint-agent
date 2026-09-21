@@ -6,12 +6,21 @@ from waypoint_agent.schemas import Schema
 
 
 class Meeting(Schema):
+    # Preserve additional source fields through calendar mutations.
+    model_config = {"extra": "allow"}
     id: str
     title: str
     start: AwareDatetime
     end: AwareDatetime
     participants: list[str]
     topic: str
+    revision: int = Field(default=1, ge=1)
+
+    @model_validator(mode="after")
+    def valid_duration(self):
+        if self.end <= self.start:
+            raise ValueError("Meeting must have positive duration")
+        return self
 
 
 class Email(Schema):

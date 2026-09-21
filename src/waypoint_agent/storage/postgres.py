@@ -30,8 +30,11 @@ class PostgresRepository:
         )
 
     async def initialize(self):
+        from waypoint_agent.calendar import CALENDAR_DDL
+
         async with await self.connect() as conn:
             await conn.execute(DDL)
+            await conn.execute(CALENDAR_DDL)
 
     async def save(self, checkpoint: Checkpoint, event: TrajectoryEvent) -> None:
         task_id = checkpoint.state.task.id

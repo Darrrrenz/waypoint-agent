@@ -1,10 +1,10 @@
-from datetime import datetime, time, timedelta
+from datetime import date, datetime, time, timedelta
 from zoneinfo import ZoneInfo
 
 from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from waypoint_agent.schemas import WorkflowContext
+from waypoint_agent.schemas import RescheduleContext, WorkflowContext
 
 
 class Settings(BaseSettings):
@@ -21,6 +21,8 @@ class Settings(BaseSettings):
     max_steps: int = Field(default=12, ge=1)
     max_model_calls: int = Field(default=12, ge=1)
     max_errors: int = Field(default=3, ge=1)
+    read_retries: int = Field(default=2, ge=0, le=5)
+    retry_backoff: float = Field(default=0.05, ge=0, le=5)
 
 
 def next_week(now: datetime, timezone: str, participant: str) -> WorkflowContext:
@@ -34,4 +36,17 @@ def next_week(now: datetime, timezone: str, participant: str) -> WorkflowContext
         start=datetime.combine(monday, time.min, zone),
         end=datetime.combine(monday + timedelta(days=7), time.min, zone),
         timezone=timezone,
+    )
+
+
+def reschedule_context(now, timezone, participant, target_date: date | None = None):
+    search = next_week(now, timezone, participant)
+    friday = target_date or (search.start.date() + timedelta(days=4))
+    if friday.weekday() != 4:
+        raise ValueError("The reschedule workflow requires a Friday target date")
+    zone = ZoneInfo(timezone)
+    return RescheduleContext(
+        **search.model_dump(),
+        destination_start=datetime.combine(friday, time(13), zone),
+        destination_end=datetime.combine(friday, time(17), zone),
     )
