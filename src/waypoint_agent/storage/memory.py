@@ -1,3 +1,5 @@
+import asyncio
+from contextlib import asynccontextmanager
 from uuid import UUID
 
 from waypoint_agent.schemas import Checkpoint, TrajectoryEvent
@@ -6,6 +8,15 @@ from waypoint_agent.schemas import Checkpoint, TrajectoryEvent
 class MemoryRepository:
     def __init__(self):
         self.records: dict[UUID, tuple[Checkpoint, list[TrajectoryEvent]]] = {}
+        self.locks = {}
+
+    @asynccontextmanager
+    async def task_lock(self, task_id):
+        lock = self.locks.setdefault(task_id, asyncio.Lock())
+        if lock.locked():
+            raise ValueError("Task is busy; retry later")
+        async with lock:
+            yield
 
     async def save(self, checkpoint: Checkpoint, event: TrajectoryEvent) -> None:
         task_id = checkpoint.state.task.id

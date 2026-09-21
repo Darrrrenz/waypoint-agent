@@ -1,3 +1,4 @@
+from contextlib import asynccontextmanager
 from uuid import UUID
 
 import psycopg
@@ -23,6 +24,19 @@ CREATE TABLE IF NOT EXISTS waypoint_events (
 class PostgresRepository:
     def __init__(self, url: str):
         self.url = url
+
+    @asynccontextmanager
+    async def task_lock(self, task_id):
+        # Dedicated session lock survives checkpoint transactions and releases on process exit.
+        key = int.from_bytes(task_id.bytes[:8], "big", signed=True)
+        async with await self.connect() as conn:
+            row = await (await conn.execute("SELECT pg_try_advisory_lock(%s)", (key,))).fetchone()
+            if not row[0]:
+                raise ValueError("Task is busy; retry later")
+            try:
+                yield
+            finally:
+                await conn.execute("SELECT pg_advisory_unlock(%s)", (key,))
 
     async def connect(self):
         return await psycopg.AsyncConnection.connect(

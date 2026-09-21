@@ -170,6 +170,7 @@ class AgentState(Schema):
     active_seconds: float = 0
     reserved_seconds: float = 0
     read_attempts: int = 0
+    replan_after_observation: int = 0
 
 
 class TrajectoryEvent(Schema):

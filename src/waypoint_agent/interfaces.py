@@ -1,3 +1,4 @@
+from contextlib import AbstractAsyncContextManager
 from typing import Any, Protocol
 from uuid import UUID
 
@@ -9,6 +10,7 @@ from waypoint_agent.schemas import (
     EvaluationResult,
     Findings,
     ModelReply,
+    RescheduleFindings,
     TrajectoryEvent,
 )
 
@@ -28,9 +30,12 @@ class Tool(Protocol):
 
 
 class Repository(Protocol):
+    def task_lock(self, task_id: UUID) -> AbstractAsyncContextManager: ...
     async def save(self, checkpoint: Checkpoint, event: TrajectoryEvent) -> None: ...
     async def load(self, task_id: UUID) -> tuple[Checkpoint, list[TrajectoryEvent]]: ...
 
 
 class Evaluator(Protocol):
-    def verify(self, state: AgentState, findings: Findings) -> EvaluationResult: ...
+    def verify(
+        self, state: AgentState, findings: Findings | RescheduleFindings
+    ) -> EvaluationResult: ...

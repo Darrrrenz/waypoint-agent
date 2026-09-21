@@ -8,10 +8,10 @@ class ScriptedModel:
     """Finite deterministic responses; exhaustion is a normal bounded model failure."""
 
     def __init__(self, actions: Iterable[Any]):
-        self.actions = iter(actions)
+        self.actions = list(actions)
 
     async def next_action(self, state: AgentState, tools: list[dict[str, Any]]) -> ModelReply:
         try:
-            return ModelReply(action=next(self.actions))
-        except StopIteration as exc:
+            return ModelReply(action=self.actions[state.model_calls - 1])
+        except IndexError as exc:
             raise ValueError("Script exhausted") from exc
