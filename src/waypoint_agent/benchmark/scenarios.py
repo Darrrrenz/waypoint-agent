@@ -4,7 +4,7 @@ from typing import Any, Literal
 
 from pydantic import Field, model_validator
 
-from waypoint_agent.schemas import RescheduleContext, Schema, WorkflowContext
+from waypoint_agent.schemas import EarliestMeetingStart, RescheduleContext, Schema, WorkflowContext
 from waypoint_agent.tools.mock import Dataset
 
 
@@ -28,6 +28,20 @@ class Expected(Schema):
     allowed_tools: list[str] | None = None
     argument_constraints: dict[str, dict[str, Any]] | None = None
     max_tool_proposals: int | None = None
+    preference_satisfied: bool | None = None
+    preference_revisions: int | None = None
+    episodes: int | None = None
+
+
+class PriorTask(Schema):
+    inputs: Inputs
+    expected: Expected
+
+
+class MemoryPlan(Schema):
+    strategy: Literal["disabled", "structured"]
+    preferences: list[EarliestMeetingStart] = Field(default_factory=list)
+    prior_task: PriorTask | None = None
 
 
 class Scenario(Schema):
@@ -37,6 +51,7 @@ class Scenario(Schema):
     expected: Expected
     approval: Literal["approve", "deny", "none"] = "none"
     fault: Literal["transient_read", "commit_before_checkpoint", "occupied_slot"] | None = None
+    memory: MemoryPlan | None = None
 
 
 class Suite(Schema):

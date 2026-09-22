@@ -1,6 +1,7 @@
 """Independent source/final-world oracle: never calls the runtime evaluator or slots()."""
 
 from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 
 from waypoint_agent.tools.mock import Meeting
 
@@ -79,7 +80,13 @@ def score(scenario, state, before, after, operations):
         free = []
         while candidate + (event.end - event.start) <= ctx.destination_end:
             end = candidate + (event.end - event.start)
-            if not any(m.id != event.id and m.start < end and candidate < m.end for m in after):
+            pref = ctx.earliest_meeting_start
+            meets_preference = pref is None or (
+                candidate.astimezone(ZoneInfo(pref.timezone)).strftime("%H:%M") >= pref.earliest
+            )
+            if meets_preference and not any(
+                m.id != event.id and m.start < end and candidate < m.end for m in after
+            ):
                 free.append(candidate)
             candidate += timedelta(minutes=ctx.slot_minutes)
         check("independent_no_availability", not free, "An available slot exists")

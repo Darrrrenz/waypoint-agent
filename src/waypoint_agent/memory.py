@@ -96,7 +96,8 @@ class PostgresMemoryStore:
         async with await self.repository.connect() as conn:
             rows = await (
                 await conn.execute(
-                    "SELECT record FROM waypoint_agent_memory WHERE namespace=%s ORDER BY key, revision",
+                    "SELECT record FROM waypoint_agent_memory WHERE namespace=%s "
+                    "ORDER BY key, revision",
                     (namespace,),
                 )
             ).fetchall()

@@ -8,7 +8,7 @@ from uuid import uuid4
 
 from waypoint_agent.approval import decide
 from waypoint_agent.benchmark.assertions import score
-from waypoint_agent.benchmark.scenarios import Suite
+from waypoint_agent.benchmark.scenarios import MemoryPlan, Scenario, Suite
 from waypoint_agent.calendar import (
     MemoryCalendar,
     PostgresCalendar,
@@ -17,6 +17,7 @@ from waypoint_agent.calendar import (
 )
 from waypoint_agent.cli import runtime_for
 from waypoint_agent.config import Settings
+from waypoint_agent.memory import InMemoryStore, MemoryController, PostgresMemoryStore
 from waypoint_agent.schemas import AgentState, Task
 from waypoint_agent.storage.memory import MemoryRepository
 from waypoint_agent.storage.postgres import PostgresRepository
@@ -64,7 +65,9 @@ async def ledger(store, world):
         return [OperationResult.model_validate(row[0]) for row in rows]
 
 
-async def run_scenario(scenario, backend="memory", settings=None, max_resumes=6):
+async def run_scenario(
+    scenario, backend="memory", settings=None, max_resumes=6, shared_memory=None, namespace=None
+):
     settings = settings or Settings(_env_file=None)
     repo = (
         MemoryRepository()
@@ -73,6 +76,26 @@ async def run_scenario(scenario, backend="memory", settings=None, max_resumes=6)
     )
     if backend == "postgres":
         await repo.initialize()
+    namespace = namespace or f"benchmark:{uuid4()}"
+    memory = shared_memory or MemoryController(
+        InMemoryStore() if backend == "memory" else PostgresMemoryStore(repo)
+    )
+    prior = None
+    if scenario.memory:
+        for preference in scenario.memory.preferences:
+            await memory.set_preference(namespace, preference)
+        if scenario.memory.prior_task:
+            step = scenario.memory.prior_task
+            prior_scenario = Scenario(
+                id=f"{scenario.id}-prior",
+                description="Declared prior task",
+                inputs=step.inputs,
+                expected=step.expected,
+                memory=MemoryPlan(strategy=scenario.memory.strategy),
+            )
+            prior = await run_scenario(
+                prior_scenario, backend, settings, shared_memory=memory, namespace=namespace
+            )
     store = MemoryCalendar() if backend == "memory" else PostgresCalendar(repo)
     world = uuid4()
     inputs = scenario.inputs.model_copy(deep=True)
@@ -91,11 +114,14 @@ async def run_scenario(scenario, backend="memory", settings=None, max_resumes=6)
         script=inputs.responses,
     )
     wrapped = FaultRepository(repo, scenario.fault == "commit_before_checkpoint")
+    await memory.prepare(
+        state, namespace, scenario.memory.strategy if scenario.memory else "disabled"
+    )
     fault_triggered = False
     harness_actions = []
 
     def fresh(saved):
-        runtime = runtime_for(saved, wrapped, store, settings)
+        runtime = runtime_for(saved, wrapped, store, settings, memory)
         if scenario.fault == "transient_read" and not fault_triggered:
             tool = runtime.tools.get("search_calendar")
             original = tool.execute
@@ -150,6 +176,44 @@ async def run_scenario(scenario, backend="memory", settings=None, max_resumes=6)
     after = await store.events(world)
     operations = await ledger(store, world)
     assertions = score(scenario, checkpoint.state, before, after, operations)
+    records = await memory.store.records(namespace)
+    preference_satisfied = None
+    if (
+        scenario.memory
+        and scenario.memory.preferences
+        and checkpoint.state.findings
+        and checkpoint.state.findings.outcome == "rescheduled"
+    ):
+        from zoneinfo import ZoneInfo
+
+        preference = scenario.memory.preferences[-1]
+        moved = next(m for m in after if m.id in checkpoint.state.findings.meeting_ids)
+        preference_satisfied = (
+            moved.start.astimezone(ZoneInfo(preference.timezone)).strftime("%H:%M")
+            >= preference.earliest
+        )
+    memory_values = {
+        "preference_satisfied": preference_satisfied,
+        "preference_revisions": sum(r.kind == "semantic" for r in records),
+        "episodes": sum(r.kind == "episodic" for r in records),
+    }
+    for name, value in memory_values.items():
+        expected = getattr(scenario.expected, name)
+        if expected is not None:
+            assertions.append(
+                {
+                    "name": name,
+                    "passed": value == expected,
+                    "detail": "" if value == expected else f"Expected {expected}; got {value}",
+                }
+            )
+    if prior:
+        from waypoint_agent.benchmark.reporting import summarize
+
+        prior_result = summarize(prior_scenario, prior)
+        assertions.extend({**a, "name": f"prior:{a['name']}"} for a in prior_result["assertions"])
+    else:
+        prior_result = None
     triggered = fault_triggered or wrapped.triggered
     if scenario.fault:
         assertions.append(
@@ -168,14 +232,48 @@ async def run_scenario(scenario, backend="memory", settings=None, max_resumes=6)
         "assertions": assertions,
         "harness_actions": harness_actions,
         "fault_triggered": triggered,
+        "memory": {
+            "namespace": namespace,
+            "strategy": checkpoint.state.memory_strategy,
+            "records": [r.model_dump(mode="json") for r in records],
+            **memory_values,
+        },
+        "prior_task": serialize(prior) if prior else None,
+        "prior_result": prior_result,
     }
 
 
-async def run_suite(suite_path, output, backend="memory", repeats=1, settings=None):
-    from waypoint_agent.benchmark.reporting import metadata, summarize, write_reports
+def serialize(run):
+    return {
+        k: (
+            [v.model_dump(mode="json") for v in value]
+            if k in ("events", "before", "after", "operations")
+            else value.model_dump(mode="json")
+            if k == "checkpoint"
+            else value
+        )
+        for k, value in run.items()
+    }
+
+
+async def run_suite(
+    suite_path, output, backend="memory", repeats=1, settings=None, selected=None, pricing_path=None
+):
+    from waypoint_agent.benchmark.reporting import Pricing, metadata, summarize, write_reports
 
     raw = await asyncio.to_thread(Path(suite_path).read_text, encoding="utf-8")
     suite = Suite.model_validate_json(raw)
+    pricing = (
+        Pricing.model_validate_json(
+            await asyncio.to_thread(Path(pricing_path).read_text, encoding="utf-8")
+        )
+        if pricing_path
+        else None
+    )
+    if selected:
+        if set(selected) - {s.id for s in suite.scenarios}:
+            raise ValueError("Unknown scenario selection")
+        suite = Suite(scenarios=[s for s in suite.scenarios if s.id in selected])
     output = Path(output)
     output.mkdir(parents=True, exist_ok=True)
     results = []
@@ -188,23 +286,28 @@ async def run_suite(suite_path, output, backend="memory", repeats=1, settings=No
                 "workflow": scenario.inputs.workflow,
                 "model": scenario.inputs.model,
                 "backend": backend,
+                "memory_strategy": scenario.memory.strategy if scenario.memory else "disabled",
+                "recovery_applicable": scenario.fault is not None,
                 "metadata": metadata(scenario),
             }
             try:
                 async with asyncio.timeout(180):
                     run = await run_scenario(scenario, backend, settings)
-                row.update(summarize(scenario, run))
+                row.update(summarize(scenario, run, pricing))
+                from waypoint_agent.benchmark.reporting import digest
+
+                row["metadata"]["config_hash"] = digest(
+                    {
+                        "inputs": scenario.inputs.model_dump(mode="json"),
+                        "memory": scenario.memory.model_dump(mode="json")
+                        if scenario.memory
+                        else None,
+                        "execution_limits": row["execution_limits"],
+                        "backend": backend,
+                    }
+                )
                 artifact = f"{scenario.id}-{repeat}.json"
-                evidence = {
-                    k: (
-                        [v.model_dump(mode="json") for v in value]
-                        if k in ("events", "before", "after", "operations")
-                        else value.model_dump(mode="json")
-                        if k == "checkpoint"
-                        else value
-                    )
-                    for k, value in run.items()
-                }
+                evidence = serialize(run)
                 (output / artifact).write_text(
                     json.dumps(evidence, indent=2) + "\n", encoding="utf-8"
                 )
@@ -218,5 +321,5 @@ async def run_suite(suite_path, output, backend="memory", repeats=1, settings=No
                 )
             row["harness_wall_seconds"] = perf_counter() - started
             results.append(row)
-    report = write_reports(output, suite, results, backend, repeats)
+    report = write_reports(output, suite, results, backend, repeats, pricing)
     return report

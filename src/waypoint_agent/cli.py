@@ -69,7 +69,15 @@ async def dispatch(args):
         from waypoint_agent.benchmark.runner import run_suite
 
         logging.getLogger("waypoint_agent").setLevel(logging.WARNING)
-        report = await run_suite(args.suite, args.output, args.backend, args.repeats, settings)
+        report = await run_suite(
+            args.suite,
+            args.output,
+            args.backend,
+            args.repeats,
+            settings,
+            args.scenario,
+            args.pricing,
+        )
         rate = report["summary"]["pass_rate"]
         print(f"Benchmark: {rate['numerator']}/{rate['denominator']} passed; {args.output}")
         return 0 if rate["value"] == 1 else 2
@@ -220,6 +228,8 @@ def main():
     benchmark.add_argument("--model-mode", choices=["deterministic"], default="deterministic")
     benchmark.add_argument("--output", type=Path, default=Path("artifacts/benchmark"))
     benchmark.add_argument("--repeats", type=int, choices=range(1, 101), default=1)
+    benchmark.add_argument("--scenario", action="append", help="Select IDs; may be repeated")
+    benchmark.add_argument("--pricing", type=Path, help="Optional dated explicit pricing JSON")
     sub.add_parser("init-db")
     memory = sub.add_parser("memory")
     memory_sub = memory.add_subparsers(dest="memory_command", required=True)
