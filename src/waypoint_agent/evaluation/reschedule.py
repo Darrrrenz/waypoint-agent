@@ -1,4 +1,4 @@
-from waypoint_agent.calendar import OperationResult, UpdateQuery, arguments_hash
+from waypoint_agent.calendar import OperationResult, UpdateQuery, arguments_hash, preference_allows
 from waypoint_agent.schemas import EvaluationResult
 from waypoint_agent.tools.calendar import Availability
 from waypoint_agent.tools.mock import CalendarQuery, CalendarResults, Meeting
@@ -56,6 +56,7 @@ class RescheduleEvaluator:
                 or after.model_dump(exclude={"start", "end", "revision"})
                 != before.model_dump(exclude={"start", "end", "revision"})
                 or not ctx.destination_start <= after.start < after.end <= ctx.destination_end
+                or not preference_allows(after.start, ctx)
                 or findings.meeting_ids != [after.id]
             ):
                 return reject("Write outcome differs from approved event or preserved fields")
@@ -125,6 +126,7 @@ class RescheduleEvaluator:
                 or available[-1].start != ctx.destination_start
                 or available[-1].end != ctx.destination_end
                 or available[-1].slot_minutes != ctx.slot_minutes
+                or available[-1].earliest_meeting_start != ctx.earliest_meeting_start
             ):
                 return reject("Need exhaustive evidence of no available destination slots")
             expected, answer = "no_availability", "No Friday-afternoon slot is available."

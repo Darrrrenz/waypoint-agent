@@ -3,6 +3,7 @@
 from datetime import datetime
 from typing import Annotated, Any, Literal
 from uuid import UUID, uuid4
+from zoneinfo import ZoneInfo
 
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, TypeAdapter, model_validator
 
@@ -18,10 +19,29 @@ class WorkflowContext(Schema):
     timezone: str
 
 
+class EarliestMeetingStart(Schema):
+    earliest: str = Field(pattern=r"^(?:[01]\d|2[0-3]):[0-5]\d$")
+    timezone: str
+
+    @model_validator(mode="after")
+    def valid_timezone(self):
+        ZoneInfo(self.timezone)
+        return self
+
+
+class MemorySelection(Schema):
+    id: UUID
+    namespace: str
+    revision: int
+    preference: EarliestMeetingStart
+    source: Literal["explicit_cli"] = "explicit_cli"
+
+
 class RescheduleContext(WorkflowContext):
     destination_start: AwareDatetime
     destination_end: AwareDatetime
     slot_minutes: int = Field(default=15, ge=1, le=240)
+    earliest_meeting_start: EarliestMeetingStart | None = None
 
     @model_validator(mode="after")
     def valid_windows(self):
@@ -172,6 +192,11 @@ class AgentState(Schema):
     reserved_seconds: float = 0
     read_attempts: int = 0
     replan_after_observation: int = 0
+    memory_strategy: Literal["disabled", "structured"] = "disabled"
+    memory_namespace: str | None = None
+    selected_memory: list[MemorySelection] = Field(default_factory=list)
+    memory_projection: Literal["pending", "stored", "failed"] = "pending"
+    memory_projection_error: str | None = None
 
 
 class TrajectoryEvent(Schema):

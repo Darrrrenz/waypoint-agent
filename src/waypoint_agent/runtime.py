@@ -40,11 +40,16 @@ TERMINAL = {"completed", "failed", "limited", "denied"}
 
 
 class Runtime:
-    def __init__(self, model, tools, repository, evaluator, settings, clock=utc_now):
+    def __init__(self, model, tools, repository, evaluator, settings, clock=utc_now, memory=None):
         self.model, self.tools, self.repository = model, tools, repository
         self.evaluator, self.settings, self.clock = evaluator, settings, clock
+        self.memory = memory
 
     async def run(self, state):
+        checkpoint = await self._run(state)
+        return await self.memory.project(self.repository, checkpoint) if self.memory else checkpoint
+
+    async def _run(self, state):
         if state.task.status != "pending":
             raise ValueError("Use resume for an existing task")
         state = state.model_copy(deep=True)
@@ -57,6 +62,10 @@ class Runtime:
         return await self._continue(Checkpoint(state=state), resumed=False)
 
     async def resume(self, task_id):
+        checkpoint = await self._resume(task_id)
+        return await self.memory.project(self.repository, checkpoint) if self.memory else checkpoint
+
+    async def _resume(self, task_id):
         async with self.repository.task_lock(task_id):
             checkpoint, _ = await self.repository.load(task_id)
             state = checkpoint.state
@@ -270,6 +279,15 @@ class Runtime:
             "task_resumed" if resumed else "task_started",
             {"goal": state.task.goal, "context": state.task.context.model_dump(mode="json")},
         )
+        if not resumed and state.memory_strategy == "structured":
+            await record(
+                "memory_retrieved",
+                {
+                    "namespace": state.memory_namespace,
+                    "records": [r.model_dump(mode="json") for r in state.selected_memory],
+                    "effective_context": state.task.context.model_dump(mode="json"),
+                },
+            )
         if state.pending_approval_id and not await approved_write():
             return checkpoint
         while True:

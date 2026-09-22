@@ -6,6 +6,7 @@ import json
 from datetime import UTC, timedelta
 from typing import Protocol
 from uuid import UUID
+from zoneinfo import ZoneInfo
 
 from psycopg.types.json import Jsonb
 from pydantic import AwareDatetime, Field, model_validator
@@ -53,13 +54,22 @@ class OperationResult(Schema):
     event: Meeting
 
 
+def preference_allows(start, context: RescheduleContext):
+    preference = context.earliest_meeting_start
+    return preference is None or (
+        start.astimezone(ZoneInfo(preference.timezone)).strftime("%H:%M") >= preference.earliest
+    )
+
+
 def slots(events: list[Meeting], event: Meeting, context: RescheduleContext):
     duration = event.end - event.start
     start = context.destination_start
     available = []
     while start + duration <= context.destination_end:
         end = start + duration
-        if not any(m.id != event.id and m.start < end and start < m.end for m in events):
+        if preference_allows(start, context) and not any(
+            m.id != event.id and m.start < end and start < m.end for m in events
+        ):
             available.append((start, end))
         start += timedelta(minutes=context.slot_minutes)
     return available
@@ -77,6 +87,8 @@ def validate_update(events, query: UpdateQuery, context: RescheduleContext):
         raise ValueError("Duration must be preserved")
     if not context.destination_start <= query.start < query.end <= context.destination_end:
         raise ValueError("Update outside destination bounds")
+    if not preference_allows(query.start, context):
+        raise ValueError("Update violates the saved earliest meeting preference")
     if (query.start - context.destination_start).total_seconds() % (context.slot_minutes * 60):
         raise ValueError("Update does not use the slot increment")
     if any(m.id != event.id and m.start < query.end and query.start < m.end for m in events):

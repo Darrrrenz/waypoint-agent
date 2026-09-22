@@ -7,7 +7,7 @@ from waypoint_agent.calendar import (
     slots,
     validate_update,
 )
-from waypoint_agent.schemas import RescheduleContext, Schema
+from waypoint_agent.schemas import EarliestMeetingStart, RescheduleContext, Schema
 from waypoint_agent.tools.mock import CalendarQuery, CalendarResults, Meeting
 
 
@@ -27,6 +27,7 @@ class Availability(Schema):
     slot_minutes: int
     slots: list[Slot]
     exhaustive: bool
+    earliest_meeting_start: EarliestMeetingStart | None = None
 
 
 class CalendarTool:
@@ -89,6 +90,7 @@ class CheckAvailability(CalendarTool):
             slot_minutes=self.context.slot_minutes,
             slots=[Slot(start=s, end=e) for s, e in slots(events, event, self.context)],
             exhaustive=True,
+            earliest_meeting_start=self.context.earliest_meeting_start,
         ).model_dump(mode="json")
 
 

@@ -11,11 +11,12 @@ from waypoint_agent.approval import decide
 from waypoint_agent.calendar import MemoryCalendar, PostgresCalendar
 from waypoint_agent.config import Settings, next_week, reschedule_context
 from waypoint_agent.evaluation.alice import MeetingEmailEvaluator
+from waypoint_agent.memory import InMemoryStore, MemoryController, PostgresMemoryStore
 from waypoint_agent.models.openai_compatible import OpenAICompatibleModel
 from waypoint_agent.models.reschedule import RescheduleDemoModel
 from waypoint_agent.models.scripted import ScriptedModel
 from waypoint_agent.runtime import Runtime
-from waypoint_agent.schemas import AgentState, Task
+from waypoint_agent.schemas import AgentState, EarliestMeetingStart, Task
 from waypoint_agent.storage.memory import MemoryRepository
 from waypoint_agent.storage.postgres import PostgresRepository
 from waypoint_agent.tools.calendar import calendar_tools
@@ -26,7 +27,7 @@ DEFAULT_GOAL = (
 )
 
 
-def runtime_for(state, repository, store, settings):
+def runtime_for(state, repository, store, settings, memory=None):
     settings = settings.model_copy(update={**state.limits, **state.model_config_values})
     dataset = Dataset.model_validate(state.dataset)
     if state.model_kind == "live":
@@ -41,7 +42,13 @@ def runtime_for(state, repository, store, settings):
         else mock_tools(dataset)
     )
     return Runtime(
-        model, tools, repository, MeetingEmailEvaluator(), settings, clock=lambda: dataset.clock
+        model,
+        tools,
+        repository,
+        MeetingEmailEvaluator(),
+        settings,
+        clock=lambda: dataset.clock,
+        memory=memory,
     )
 
 
@@ -76,6 +83,22 @@ async def dispatch(args):
         print("Database initialized.")
         return 0
     store = MemoryCalendar() if getattr(args, "ephemeral", False) else PostgresCalendar(repository)
+    memory = MemoryController(
+        InMemoryStore() if getattr(args, "ephemeral", False) else PostgresMemoryStore(repository)
+    )
+    if args.command == "memory":
+        if args.memory_command == "set":
+            result = await memory.set_preference(
+                args.namespace, EarliestMeetingStart(earliest=args.earliest, timezone=args.timezone)
+            )
+            print(result.model_dump_json(indent=2))
+        else:
+            records = await memory.store.records(args.namespace)
+            kind = "episodic" if args.memory_command == "episodes" else "semantic"
+            print(
+                json.dumps([r.model_dump(mode="json") for r in records if r.kind == kind], indent=2)
+            )
+        return 0
     if args.command == "seed-calendar":
         world = args.world_id or uuid4()
         await store.seed(world, Dataset.load(args.fixture).meetings)
@@ -103,7 +126,7 @@ async def dispatch(args):
         checkpoint, events = await repository.load(args.task_id)
     elif args.command == "resume":
         saved, _ = await repository.load(args.task_id)
-        runtime = runtime_for(saved.state, repository, store, settings)
+        runtime = runtime_for(saved.state, repository, store, settings, memory)
         checkpoint = await runtime.resume(args.task_id)
         _, events = await repository.load(args.task_id)
     else:
@@ -149,7 +172,8 @@ async def dispatch(args):
             ),
             script=json.loads(script_path.read_text(encoding="utf-8")) if script_path else None,
         )
-        runtime = runtime_for(state, repository, store, settings)
+        await memory.prepare(state, args.memory_namespace, args.memory_strategy)
+        runtime = runtime_for(state, repository, store, settings, memory)
         checkpoint = await runtime.run(state)
         _, events = await repository.load(checkpoint.state.task.id)
     payload = {
@@ -168,13 +192,20 @@ async def dispatch(args):
         )
         print(state.answer or "No verified answer.")
         print(f"Trajectory: {len(events)} events; model calls: {state.model_calls}")
+        if state.memory_strategy == "structured":
+            print(f"Memory projection: {state.memory_projection}")
+        if state.memory_projection == "failed":
+            print("Memory projection failed; resume this completed task to retry.", file=sys.stderr)
         if state.pending_approval_id:
             show_approvals(state)
         if getattr(args, "ephemeral", False):
             print("Ephemeral run: use --export to retain the trajectory.")
     return (
         0
-        if checkpoint.state.task.status in ("completed", "waiting_for_approval", "denied")
+        if (
+            checkpoint.state.task.status in ("completed", "waiting_for_approval", "denied")
+            and checkpoint.state.memory_projection != "failed"
+        )
         or args.command == "inspect"
         else 2
     )
@@ -190,6 +221,16 @@ def main():
     benchmark.add_argument("--output", type=Path, default=Path("artifacts/benchmark"))
     benchmark.add_argument("--repeats", type=int, choices=range(1, 101), default=1)
     sub.add_parser("init-db")
+    memory = sub.add_parser("memory")
+    memory_sub = memory.add_subparsers(dest="memory_command", required=True)
+    for command in ("set", "list", "episodes"):
+        child = memory_sub.add_parser(command)
+        child.add_argument("--namespace", default="default")
+        if command == "set":
+            child.add_argument(
+                "--earliest", required=True, help="Earliest local meeting start, HH:MM"
+            )
+            child.add_argument("--timezone", default="America/Toronto")
     seed = sub.add_parser("seed-calendar")
     seed.add_argument("--world-id", type=UUID, default=None)
     seed.add_argument("--fixture", type=Path, default=Path("fixtures/environment.json"))
@@ -216,6 +257,8 @@ def main():
     run.add_argument("--ephemeral", action="store_true")
     run.add_argument("--json", action="store_true")
     run.add_argument("--export", type=Path)
+    run.add_argument("--memory-strategy", choices=["disabled", "structured"], default="structured")
+    run.add_argument("--memory-namespace", default="default")
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     # psycopg async connections require selector support on Windows.
     loop_factory = asyncio.SelectorEventLoop if sys.platform == "win32" else None
