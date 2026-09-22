@@ -164,6 +164,8 @@ class MemoryController:
         ]
 
     async def prepare(self, state, namespace, strategy="structured"):
+        if not namespace.strip():
+            raise ValueError("Memory namespace cannot be empty")
         if state.task.status != "pending":
             raise ValueError("Only new tasks may retrieve memory")
         if strategy not in ("disabled", "structured"):

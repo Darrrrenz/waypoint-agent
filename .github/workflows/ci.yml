@@ -32,9 +32,14 @@ jobs:
       - run: uv run waypoint-agent init-db
       - run: uv run waypoint-agent run --export artifacts/trajectory.json
       - run: uv run python scripts/export_reschedule.py --output artifacts/reschedule-trajectory.json
+      - name: Deterministic isolated benchmark
+        run: uv run waypoint-agent benchmark --backend memory --repeats 2 --output artifacts/benchmark
+      - name: PostgreSQL benchmark
+        run: uv run waypoint-agent benchmark --backend postgres --output artifacts/benchmark-postgres
       - run: uv run pre-commit run --all-files
       - run: uv build
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: trajectory-${{ matrix.python }}
-          path: artifacts/*.json
+          name: evidence-${{ matrix.python }}
+          path: artifacts/

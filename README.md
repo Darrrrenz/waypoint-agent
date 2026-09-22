@@ -1,104 +1,103 @@
 # waypoint-agent
 
-An evaluation-driven personal agent runtime built with Python 3.12+, Pydantic v2, and
-PostgreSQL. The default read-only workflow runs against deterministic mock data:
+A small, evidence-verified personal agent runtime built with Python 3.12+, Pydantic v2,
+and PostgreSQL. It supports meeting/email retrieval and approval-gated rescheduling against
+deterministic mock data, with persistent preference memory and an independent benchmark.
 
-> Find my meeting with Alice next week and tell me whether I have any related unread emails.
-
-The model proposes actions; the runtime validates, executes, records, and verifies them
-before accepting completion. Both a credential-free scripted adapter and an OpenAI-compatible
-adapter use the same runtime. No agent framework is involved.
-
-Day 2 adds **“Move my meeting with Alice to Friday afternoon.”** against an explicitly
-seeded persistent mock calendar. It pauses for a human decision, resumes in a new process,
-revalidates the exact approved operation, and verifies the result through an event read.
+The model proposes actions. The runtime validates, executes, records, and verifies them.
+Calendar writes require an explicit decision bound to the exact change. There is no agent
+framework, real account integration, web server, or vector database.
 
 ## Quick start
-
-From this directory, with Python and uv installed:
 
 ```sh
 uv sync --frozen
 uv run waypoint-agent run --ephemeral --export artifacts/trajectory.json
+uv run waypoint-agent benchmark --suite benchmarks/core.json --backend memory --output artifacts/benchmark
 ```
 
-For persistent runs, with Docker running:
+On Windows, if `uv` is not on PATH, use `.\.venv\Scripts\uv.exe` in its place.
+The default workflow finds the September 22, 2026 meeting with Alice (`cal-alice-001`) and
+reads its related unread message (`mail-alice-unread`). Read and unrelated mail are excluded.
+The semantic clock is fixed to September 20, 2026 in America/Toronto.
+
+## What the runtime provides
+
+- Typed tools and evidence-backed findings, including missing and ambiguous meetings.
+- Persisted execution budgets, bounded read retries, checkpoints, and ordered trajectories.
+- Exact approval bindings, revision checks, conflict checks, and an idempotent operation ledger.
+- Recovery when a calendar write commits before its observation is persisted.
+- Explicit earliest-meeting preferences and compact verified episodes in separate agent memory.
+- A 16-scenario benchmark with independent calendar checks, JSON/Markdown reports, and CI artifacts.
+- Credential-free scripted/demo models and an opt-in OpenAI-compatible adapter for ordinary runs.
+
+## Persistent approval and memory demo
+
+Start the development database and initialize its additive tables:
 
 ```sh
 docker compose up -d --wait postgres
 uv run waypoint-agent init-db
-uv run waypoint-agent run
-uv run waypoint-agent inspect <task-id>
+uv run waypoint-agent memory set --namespace demo --earliest 15:00 --timezone America/Toronto
+uv run waypoint-agent memory list --namespace demo
+uv run waypoint-agent seed-calendar
 ```
 
-The demo finds **Waypoint launch review with Alice**, September 22, 2026 at 10:00 EDT
-(`cal-alice-001`), and **Launch review agenda** (`mail-alice-unread`). Read mail and
-unrelated unread mail are excluded. The fixture clock is fixed to September 20, 2026;
-“next week” means the next Monday-to-Sunday period in America/Toronto.
-
-## What Day 1 includes
-
-- Read-only calendar search, email search, and email read tools with validated schemas.
-- Structured actions and evidence-backed completion, including absence and ambiguity.
-- Step/call limits, per-call timeouts, execution deadline, and bounded error handling.
-- Atomic PostgreSQL checkpoints, ordered trajectories, and an inspection CLI.
-- Credential-free tests, Ruff, pre-commit, a dependency lockfile, Docker, and PostgreSQL CI.
-
-## Day 2 approval demo
-
-Start PostgreSQL and initialize the database using the commands above, then:
+Use the printed world UUID. Each command runs in a fresh process:
 
 ```sh
-uv run waypoint-agent seed-calendar
-# Copy the printed calendar-world UUID into the next command.
-uv run waypoint-agent run --workflow reschedule --world-id <world-id>
+uv run waypoint-agent run --workflow reschedule --world-id <world-id> --memory-namespace demo
 uv run waypoint-agent approvals <task-id>
 uv run waypoint-agent approve <task-id> <approval-id>
-uv run waypoint-agent resume <task-id> --export artifacts/reschedule-trajectory.json
+uv run waypoint-agent resume <task-id> --export artifacts/memory-trajectory.json
+uv run waypoint-agent memory episodes --namespace demo
 uv run waypoint-agent inspect <task-id>
 ```
 
-`run` exits with `waiting_for_approval` and leaves the calendar unchanged. `approve` records
-the decision; only `resume` executes it. Use `deny` instead of `approve` to refuse the change,
-then `resume` to finalize denial. Commands support JSON inspection with `--json`.
+The free Friday 13:00–17:00 window now yields **15:00–15:30 America/Toronto**, and approval
+names that exact change. Use `deny` instead of `approve` to leave the calendar unchanged.
+The default strategy is `structured`; `--memory-strategy disabled` selects 13:00 in the same
+starting calendar. Existing worlds are never reseeded or overwritten.
 
-The fixture's target is **September 25, 2026, 13:00–13:30 America/Toronto**. Search scope
-and destination scope are separate; scheduling preserves duration and picks the earliest
-conflict-free slot in 13:00–17:00 at 15-minute increments. Identity/date options are explicit;
-this is not general natural-language date parsing.
+Only explicit `memory set` input creates preferences. Tasks save the selected record ID,
+revision, and effective constraint; later preference changes affect new tasks. Availability,
+proposal validation, atomic writes, and completion evidence enforce the saved constraint.
+Completed tasks produce compact episodes without email bodies. If memory projection fails,
+the task stays completed, the failure is visible, and `resume` retries projection without
+repeating the calendar mutation.
 
-Approval bindings, event revisions, a transactional operation ledger, and task locks protect
-the mock mutation. Restart preserves model progress, budgets, and ordered trajectory events.
-Stale revisions or new conflicts require a new proposal and approval. These guarantees apply
-to the transactional mock store, not future external calendar APIs.
-
-Without PostgreSQL, preview the approval or generate the synthetic test example:
+Without PostgreSQL, run the paired synthetic demonstration:
 
 ```sh
-uv run waypoint-agent run --workflow reschedule --ephemeral
-uv run python scripts/export_reschedule.py --memory --output artifacts/reschedule-example.json
+uv run waypoint-agent benchmark --scenario memory_disabled --scenario memory_structured --output artifacts/memory-demo
 ```
 
-Ephemeral state cannot be resumed after exit. The export harness supplies an explicit synthetic
-decision for its own mock task; normal CLI runs never approve themselves. See the complete
-[Day 2 guide](docs/day2.md) and [generated trajectory](docs/day2-example-trajectory.json).
+Both cases use identical source calendars and explicit preference setup. The benchmark supplies
+labeled synthetic decisions through the normal approval interface; ordinary runs never approve
+themselves. In-memory reconstruction demonstrates recovery logic, not process/database durability.
+
+## Benchmarks and validation
 
 ```sh
+uv run waypoint-agent benchmark --backend memory --repeats 2 --output artifacts/benchmark
 uv run pytest -q
 uv run ruff check .
 uv run ruff format --check .
-uv run pre-commit install
+uv run pre-commit run --all-files
+uv build
 ```
 
-Database tests require `WAYPOINT_TEST_DATABASE_URL`; otherwise they explicitly skip. Live
-mode requires `WAYPOINT_API_KEY` and a compatible model/endpoint; see `.env.example`.
+Local validation: **95 tests passed, 12 PostgreSQL tests skipped; 32/32 benchmark runs passed**.
+See the [generated report](docs/benchmark-example/report.md),
+[paired memory evidence](docs/benchmark-example/memory-pair.json), and
+[benchmark/memory guide](docs/day3.md) for methodology, commands, results, and limitations.
 
-Local Day 2 validation: **79 tests passed, 10 PostgreSQL tests skipped**. Both credential-free
-workflows, Ruff lint/format, pre-commit, and wheel/source builds passed. PostgreSQL initialization
-was probed and failed with `ConnectionTimeout`; Docker/PostgreSQL infrastructure and model
-credentials are unavailable. Database durability, subprocess integration tests, and live
-inference therefore remain unverified locally. CI runs the database tests and exports both
-completed workflows.
+Database tests require `WAYPOINT_TEST_DATABASE_URL`; persistent commands use
+`WAYPOINT_DATABASE_URL`. Live runs require `WAYPOINT_API_KEY`, `WAYPOINT_MODEL`, and a compatible
+`WAYPOINT_BASE_URL`; see `.env.example`. Benchmark model mode is deliberately deterministic.
+No live inference or local PostgreSQL durability result is claimed. CI is configured to execute
+database tests and both benchmark backends; configuration alone is not a passing CI result.
 
-Read the [historical Day 1 guide](docs/day1.md) and [Day 1 example](docs/example-trajectory.json).
-Real integrations, a web interface, advanced memory, and multiple agents remain deferred.
+Historical [retrieval design notes](docs/day1.md) and [approval design notes](docs/day2.md)
+remain available. Real integrations, natural-language date parsing, a frontend, embeddings,
+multi-agent execution, and cloud deployment are outside the current scope.

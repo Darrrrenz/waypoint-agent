@@ -1,0 +1,4909 @@
+{
+  "report_schema_version": 1,
+  "scenario_schema_version": 1,
+  "suite_hash": "b2e751365a32ba735f9f4c44d623ab1f6a5dbfa82f98ae9b79dadc268af5efc0",
+  "revision": "34af9c7747a9d51519a516b5e94371c3cbd73f00",
+  "dirty": true,
+  "backend": "memory",
+  "model_mode": "deterministic",
+  "coverage": {
+    "live_inference": "not_run",
+    "process_restart": "not_measured",
+    "database_persistence": "not_run"
+  },
+  "repeats": 2,
+  "pricing": null,
+  "summary": {
+    "pass_rate": {
+      "numerator": 32,
+      "denominator": 32,
+      "value": 1.0
+    },
+    "statuses": {
+      "passed": 32
+    },
+    "recovery": {
+      "numerator": 6,
+      "denominator": 6,
+      "value": 1.0
+    }
+  },
+  "results": [
+    {
+      "id": "retrieval",
+      "repeat": 0,
+      "workflow": "meeting_email",
+      "model": "scripted",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "2ac863ce445fa22c2aa3da4d2fe7b3a1ef0b5a74cf147edde549bf465446bc2c",
+        "config_hash": "f6cb7be9d45b5f31fc283a338501f2dff67dca6256b091ee69caf41a9ef16ae0",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto"
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_relevance",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_reads",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "argument_constraints",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "action_budget",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 3,
+        "write_proposals": 0,
+        "execution_attempts": 3,
+        "read_attempts": 3,
+        "write_attempts": 0,
+        "retries": 0,
+        "proposal_validations": 0,
+        "mutations": 0,
+        "harness_mutations": 0,
+        "logical_write_operations": 0,
+        "invalid_calls": 0,
+        "model_calls": 4,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 4,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 3,
+          "denominator": 3,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "unnecessary_actions": 0,
+        "disallowed_actions": 0,
+        "active_seconds": 0.009616099996492267,
+        "charged_active_seconds": 0.008044099900871515,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "retrieval-0.json",
+      "harness_wall_seconds": 0.011393400025554001
+    },
+    {
+      "id": "exclude_read_unrelated",
+      "repeat": 0,
+      "workflow": "meeting_email",
+      "model": "scripted",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "bae4f3729b4f7153b99b5df699a3878789084eae03b125a338e9171770fa2d7b",
+        "config_hash": "e01ac4a5e0584a81f602a6898f146d0108379b8e28e06c2fe19d52be3dad4e5e",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto"
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_relevance",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_reads",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 3,
+        "write_proposals": 0,
+        "execution_attempts": 3,
+        "read_attempts": 3,
+        "write_attempts": 0,
+        "retries": 0,
+        "proposal_validations": 0,
+        "mutations": 0,
+        "harness_mutations": 0,
+        "logical_write_operations": 0,
+        "invalid_calls": 0,
+        "model_calls": 4,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 4,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 3,
+          "denominator": 3,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": null,
+        "disallowed_actions": 0,
+        "active_seconds": 0.007310400018468499,
+        "charged_active_seconds": 0.007062499993480742,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "exclude_read_unrelated-0.json",
+      "harness_wall_seconds": 0.008659200044348836
+    },
+    {
+      "id": "missing_meeting",
+      "repeat": 0,
+      "workflow": "meeting_email",
+      "model": "scripted",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "4b2558c5e7b79f6561fbc51f1096a720c056129a42d48cfb94f1190dc5a677e9",
+        "config_hash": "775677b4b878fd6b0f1029d838023bf5c5d773479e9629e30d9d738815dedd98",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto"
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 1,
+        "write_proposals": 0,
+        "execution_attempts": 1,
+        "read_attempts": 1,
+        "write_attempts": 0,
+        "retries": 0,
+        "proposal_validations": 0,
+        "mutations": 0,
+        "harness_mutations": 0,
+        "logical_write_operations": 0,
+        "invalid_calls": 0,
+        "model_calls": 2,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 2,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": null,
+        "disallowed_actions": 0,
+        "active_seconds": 0.0059102000668644905,
+        "charged_active_seconds": 0.0057200000155717134,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "missing_meeting-0.json",
+      "harness_wall_seconds": 0.006897499901242554
+    },
+    {
+      "id": "ambiguous_meetings",
+      "repeat": 0,
+      "workflow": "meeting_email",
+      "model": "scripted",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "a85c59514345675a874ba75427b70c226edec53fc1e37d4c297c42079efc15d6",
+        "config_hash": "2d4db20fc73db98c033c47979d52787aaf9471809e369c3fde21fd3c32d27098",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto"
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 1,
+        "write_proposals": 0,
+        "execution_attempts": 1,
+        "read_attempts": 1,
+        "write_attempts": 0,
+        "retries": 0,
+        "proposal_validations": 0,
+        "mutations": 0,
+        "harness_mutations": 0,
+        "logical_write_operations": 0,
+        "invalid_calls": 0,
+        "model_calls": 2,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 2,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": null,
+        "disallowed_actions": 0,
+        "active_seconds": 0.0035957000218331814,
+        "charged_active_seconds": 0.0033925999887287617,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "ambiguous_meetings-0.json",
+      "harness_wall_seconds": 0.0046790000051259995
+    },
+    {
+      "id": "no_related_unread",
+      "repeat": 0,
+      "workflow": "meeting_email",
+      "model": "scripted",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "e3b552b3e9f797d7c13e5ee7c49fab969284421c9709d325bc2c8401e31b9ca9",
+        "config_hash": "fba91091e8a1a338a38b2b49eb3c88fd33b781daa2e6aae43b569ad3b57cf5e4",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto"
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 2,
+        "write_proposals": 0,
+        "execution_attempts": 2,
+        "read_attempts": 2,
+        "write_attempts": 0,
+        "retries": 0,
+        "proposal_validations": 0,
+        "mutations": 0,
+        "harness_mutations": 0,
+        "logical_write_operations": 0,
+        "invalid_calls": 0,
+        "model_calls": 3,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 3,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 2,
+          "denominator": 2,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": null,
+        "disallowed_actions": 0,
+        "active_seconds": 0.00543889997061342,
+        "charged_active_seconds": 0.005234000040218234,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "no_related_unread-0.json",
+      "harness_wall_seconds": 0.006657300051301718
+    },
+    {
+      "id": "approved_reschedule",
+      "repeat": 0,
+      "workflow": "reschedule",
+      "model": "reschedule_demo",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "f65379f4a33c1c3356a746c659dc1e6c299bb5fb832f70a696ea37b31b4dff52",
+        "config_hash": "78eeb68341f8a85f749d99d1f73e0c80b5aedf9028406634682bc901134a0ee2",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto",
+          "destination_start": "2026-09-25T13:00:00-04:00",
+          "destination_end": "2026-09-25T17:00:00-04:00",
+          "slot_minutes": 15,
+          "earliest_meeting_start": null
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authorized_operation",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "execution_present",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "destination_bounds",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "no_overlap",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "action_budget",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 4,
+        "write_proposals": 1,
+        "execution_attempts": 4,
+        "read_attempts": 3,
+        "write_attempts": 1,
+        "retries": 0,
+        "proposal_validations": 1,
+        "mutations": 1,
+        "harness_mutations": 0,
+        "logical_write_operations": 1,
+        "invalid_calls": 0,
+        "model_calls": 5,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 5,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 4,
+          "denominator": 4,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": 0,
+        "disallowed_actions": 0,
+        "active_seconds": 0.01637159998062998,
+        "charged_active_seconds": 0.014872900093905628,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "approved_reschedule-0.json",
+      "harness_wall_seconds": 0.019378699944354594
+    },
+    {
+      "id": "transient_read",
+      "repeat": 0,
+      "workflow": "reschedule",
+      "model": "reschedule_demo",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": true,
+      "metadata": {
+        "scenario_hash": "44966ea0ecc8f19ed24d44ed0214473e7936a6534229c002e11f2710dbf1cbdb",
+        "config_hash": "78eeb68341f8a85f749d99d1f73e0c80b5aedf9028406634682bc901134a0ee2",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto",
+          "destination_start": "2026-09-25T13:00:00-04:00",
+          "destination_end": "2026-09-25T17:00:00-04:00",
+          "slot_minutes": 15,
+          "earliest_meeting_start": null
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authorized_operation",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "execution_present",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "destination_bounds",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "no_overlap",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "fault_exercised",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "action_budget",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 4,
+        "write_proposals": 1,
+        "execution_attempts": 5,
+        "read_attempts": 4,
+        "write_attempts": 1,
+        "retries": 1,
+        "proposal_validations": 1,
+        "mutations": 1,
+        "harness_mutations": 0,
+        "logical_write_operations": 1,
+        "invalid_calls": 0,
+        "model_calls": 5,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 5,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 4,
+          "denominator": 4,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": 0,
+        "disallowed_actions": 0,
+        "active_seconds": 0.07136359997093678,
+        "charged_active_seconds": 0.07049009995535016,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "transient_read-0.json",
+      "harness_wall_seconds": 0.0738005000166595
+    },
+    {
+      "id": "commit_recovery",
+      "repeat": 0,
+      "workflow": "reschedule",
+      "model": "reschedule_demo",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": true,
+      "metadata": {
+        "scenario_hash": "a620fa69716ef417b860004b1768f340b1ba0676cd840ff9939783c3bd7c6ff0",
+        "config_hash": "78eeb68341f8a85f749d99d1f73e0c80b5aedf9028406634682bc901134a0ee2",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto",
+          "destination_start": "2026-09-25T13:00:00-04:00",
+          "destination_end": "2026-09-25T17:00:00-04:00",
+          "slot_minutes": 15,
+          "earliest_meeting_start": null
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authorized_operation",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "execution_present",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "destination_bounds",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "no_overlap",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "fault_exercised",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "action_budget",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 4,
+        "write_proposals": 1,
+        "execution_attempts": 4,
+        "read_attempts": 3,
+        "write_attempts": 1,
+        "retries": 0,
+        "proposal_validations": 1,
+        "mutations": 1,
+        "harness_mutations": 0,
+        "logical_write_operations": 1,
+        "invalid_calls": 0,
+        "model_calls": 5,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 5,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 4,
+          "denominator": 4,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": 0,
+        "disallowed_actions": 0,
+        "active_seconds": 0.017162199830636382,
+        "charged_active_seconds": 5.015369199914858,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "commit_recovery-0.json",
+      "harness_wall_seconds": 0.0196264999685809
+    },
+    {
+      "id": "no_destination_slot",
+      "repeat": 0,
+      "workflow": "reschedule",
+      "model": "reschedule_demo",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "69c08d9ae84366ba22bd9a4566d3f5af87ce8fc166a6f5168f582e15da7c95c6",
+        "config_hash": "8b66c055b19820aa160af1864efbf29f15ee8644b0674a6e2451acc1f836b144",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto",
+          "destination_start": "2026-09-25T13:00:00-04:00",
+          "destination_end": "2026-09-25T17:00:00-04:00",
+          "slot_minutes": 15,
+          "earliest_meeting_start": null
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "independent_no_availability",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 2,
+        "write_proposals": 0,
+        "execution_attempts": 2,
+        "read_attempts": 2,
+        "write_attempts": 0,
+        "retries": 0,
+        "proposal_validations": 0,
+        "mutations": 0,
+        "harness_mutations": 0,
+        "logical_write_operations": 0,
+        "invalid_calls": 0,
+        "model_calls": 3,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 3,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 2,
+          "denominator": 2,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": null,
+        "disallowed_actions": 0,
+        "active_seconds": 0.008936700061894953,
+        "charged_active_seconds": 0.008533000014722347,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "no_destination_slot-0.json",
+      "harness_wall_seconds": 0.010173500049859285
+    },
+    {
+      "id": "approval_denied",
+      "repeat": 0,
+      "workflow": "reschedule",
+      "model": "reschedule_demo",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "ac1a8aa5965f8907c868523a0b67003fdd26aacc6c1ea14e9084559f1efb8a64",
+        "config_hash": "78eeb68341f8a85f749d99d1f73e0c80b5aedf9028406634682bc901134a0ee2",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto",
+          "destination_start": "2026-09-25T13:00:00-04:00",
+          "destination_end": "2026-09-25T17:00:00-04:00",
+          "slot_minutes": 15,
+          "earliest_meeting_start": null
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "denied",
+      "metrics": {
+        "tool_proposals": 3,
+        "write_proposals": 1,
+        "execution_attempts": 2,
+        "read_attempts": 2,
+        "write_attempts": 0,
+        "retries": 0,
+        "proposal_validations": 1,
+        "mutations": 0,
+        "harness_mutations": 0,
+        "logical_write_operations": 1,
+        "invalid_calls": 0,
+        "model_calls": 3,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 3,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 3,
+          "denominator": 3,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": null,
+        "disallowed_actions": 0,
+        "active_seconds": 0.00896799995098263,
+        "charged_active_seconds": 0.008183000143617392,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "approval_denied-0.json",
+      "harness_wall_seconds": 0.010724599938839674
+    },
+    {
+      "id": "occupied_after_approval",
+      "repeat": 0,
+      "workflow": "reschedule",
+      "model": "reschedule_demo",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": true,
+      "metadata": {
+        "scenario_hash": "b478ef1357d4422cd651268f546d49e85a9e8f38c741eaf91b7f40a0e15f7b03",
+        "config_hash": "78eeb68341f8a85f749d99d1f73e0c80b5aedf9028406634682bc901134a0ee2",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto",
+          "destination_start": "2026-09-25T13:00:00-04:00",
+          "destination_end": "2026-09-25T17:00:00-04:00",
+          "slot_minutes": 15,
+          "earliest_meeting_start": null
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authorized_operation",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "execution_present",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "destination_bounds",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "no_overlap",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "fresh_approval",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "fault_exercised",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 7,
+        "write_proposals": 2,
+        "execution_attempts": 7,
+        "read_attempts": 5,
+        "write_attempts": 2,
+        "retries": 0,
+        "proposal_validations": 2,
+        "mutations": 2,
+        "harness_mutations": 1,
+        "logical_write_operations": 2,
+        "invalid_calls": 0,
+        "model_calls": 8,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 8,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 7,
+          "denominator": 7,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": null,
+        "disallowed_actions": 0,
+        "active_seconds": 0.02769709995482117,
+        "charged_active_seconds": 0.025973299867473543,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "occupied_after_approval-0.json",
+      "harness_wall_seconds": 0.03125620004720986
+    },
+    {
+      "id": "malformed_model",
+      "repeat": 0,
+      "workflow": "meeting_email",
+      "model": "scripted",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "b7dc26bcf63fe370bcfcb636d117c16c71679f6ab390d3ccad469ea15c68cb92",
+        "config_hash": "fea2d97d56a5ce82559569f72e75f70a597f980201555e66d0e488cb6bf42073",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto"
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "action_budget",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "failed",
+      "metrics": {
+        "tool_proposals": 0,
+        "write_proposals": 0,
+        "execution_attempts": 0,
+        "read_attempts": 0,
+        "write_attempts": 0,
+        "retries": 0,
+        "proposal_validations": 0,
+        "mutations": 0,
+        "harness_mutations": 0,
+        "logical_write_operations": 0,
+        "invalid_calls": 3,
+        "model_calls": 3,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 3,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": 0,
+        "disallowed_actions": 0,
+        "active_seconds": 0.005255900090560317,
+        "charged_active_seconds": 0.0050870999693870544,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "malformed_model-0.json",
+      "harness_wall_seconds": 0.006282999995164573
+    },
+    {
+      "id": "memory_disabled",
+      "repeat": 0,
+      "workflow": "reschedule",
+      "model": "reschedule_demo",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "2f2eb36f41f1f60a1ec0a808153869b6de0bd356b58708b189427e78a6e0eed6",
+        "config_hash": "6aa2cc532ed8e9af4a1984a0607285ae391a16cff8b5896ad2af2f1c69f6b0bb",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto",
+          "destination_start": "2026-09-25T13:00:00-04:00",
+          "destination_end": "2026-09-25T17:00:00-04:00",
+          "slot_minutes": 15,
+          "earliest_meeting_start": null
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authorized_operation",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "execution_present",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "destination_bounds",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "no_overlap",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "preference_satisfied",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "preference_revisions",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "episodes",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:email_relevance",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:email_reads",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:allowed_tools",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:argument_constraints",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:action_budget",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "action_budget",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 7,
+        "write_proposals": 1,
+        "execution_attempts": 7,
+        "read_attempts": 6,
+        "write_attempts": 1,
+        "retries": 0,
+        "proposal_validations": 1,
+        "mutations": 1,
+        "harness_mutations": 0,
+        "logical_write_operations": 1,
+        "invalid_calls": 0,
+        "model_calls": 9,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 9,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 7,
+          "denominator": 7,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "unnecessary_actions": 0,
+        "disallowed_actions": 0,
+        "active_seconds": 0.02311650011688471,
+        "charged_active_seconds": 0.02207569987513125,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 1,
+          "value": 0.0
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "memory_disabled-0.json",
+      "harness_wall_seconds": 0.02621389995329082
+    },
+    {
+      "id": "memory_structured",
+      "repeat": 0,
+      "workflow": "reschedule",
+      "model": "reschedule_demo",
+      "backend": "memory",
+      "memory_strategy": "structured",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "626c1f0158f08b4bdad73e60f55c2e52d9173fc288f2574fce134395b867fa8f",
+        "config_hash": "959d57d2d49b14ee7248e5b2f4291ed7322a3657d154308a02d884f08eb78fd1",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto",
+          "destination_start": "2026-09-25T13:00:00-04:00",
+          "destination_end": "2026-09-25T17:00:00-04:00",
+          "slot_minutes": 15,
+          "earliest_meeting_start": null
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authorized_operation",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "execution_present",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "destination_bounds",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "no_overlap",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "episode_projected",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "preference_satisfied",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "preference_revisions",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "episodes",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:email_relevance",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:email_reads",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:episode_projected",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:allowed_tools",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:argument_constraints",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:action_budget",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "action_budget",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 7,
+        "write_proposals": 1,
+        "execution_attempts": 7,
+        "read_attempts": 6,
+        "write_attempts": 1,
+        "retries": 0,
+        "proposal_validations": 1,
+        "mutations": 1,
+        "harness_mutations": 0,
+        "logical_write_operations": 1,
+        "invalid_calls": 0,
+        "model_calls": 9,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 9,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 7,
+          "denominator": 7,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "unnecessary_actions": 0,
+        "disallowed_actions": 0,
+        "active_seconds": 0.027594400104135275,
+        "charged_active_seconds": 0.024826599867083132,
+        "preference_satisfaction": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "memory_structured-0.json",
+      "harness_wall_seconds": 0.031381400069221854
+    },
+    {
+      "id": "memory_changed",
+      "repeat": 0,
+      "workflow": "reschedule",
+      "model": "reschedule_demo",
+      "backend": "memory",
+      "memory_strategy": "structured",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "2fa15d0d31b33cab4a08da1de8167d563797357d3a1a8ab64e25e2498539ce32",
+        "config_hash": "c7ca168c470eaa32e3ffcc27fd0f516e9a54fdd9146ee4987eb3fd4ccd23de7e",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto",
+          "destination_start": "2026-09-25T13:00:00-04:00",
+          "destination_end": "2026-09-25T17:00:00-04:00",
+          "slot_minutes": 15,
+          "earliest_meeting_start": null
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authorized_operation",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "execution_present",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "destination_bounds",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "no_overlap",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "episode_projected",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "preference_satisfied",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "preference_revisions",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "episodes",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "action_budget",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 4,
+        "write_proposals": 1,
+        "execution_attempts": 4,
+        "read_attempts": 3,
+        "write_attempts": 1,
+        "retries": 0,
+        "proposal_validations": 1,
+        "mutations": 1,
+        "harness_mutations": 0,
+        "logical_write_operations": 1,
+        "invalid_calls": 0,
+        "model_calls": 5,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 5,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 4,
+          "denominator": 4,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": 0,
+        "disallowed_actions": 0,
+        "active_seconds": 0.017013499978929758,
+        "charged_active_seconds": 0.015374299953691661,
+        "preference_satisfaction": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "memory_changed-0.json",
+      "harness_wall_seconds": 0.02040319994557649
+    },
+    {
+      "id": "memory_no_slot",
+      "repeat": 0,
+      "workflow": "reschedule",
+      "model": "reschedule_demo",
+      "backend": "memory",
+      "memory_strategy": "structured",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "1073dacb36a7747f6b552e4c6834d8b8dc144d90d3ea7e52e59f71b0f4f6bd26",
+        "config_hash": "b0f452343f1fc1a2047a80c21a76d63a2c5841a3feeaf5294fa0bdc12e211f7c",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto",
+          "destination_start": "2026-09-25T13:00:00-04:00",
+          "destination_end": "2026-09-25T17:00:00-04:00",
+          "slot_minutes": 15,
+          "earliest_meeting_start": null
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "independent_no_availability",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "episode_projected",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "preference_revisions",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "episodes",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "action_budget",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 2,
+        "write_proposals": 0,
+        "execution_attempts": 2,
+        "read_attempts": 2,
+        "write_attempts": 0,
+        "retries": 0,
+        "proposal_validations": 0,
+        "mutations": 0,
+        "harness_mutations": 0,
+        "logical_write_operations": 0,
+        "invalid_calls": 0,
+        "model_calls": 3,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 3,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 2,
+          "denominator": 2,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": 0,
+        "disallowed_actions": 0,
+        "active_seconds": 0.010567800025455654,
+        "charged_active_seconds": 0.009782200097106397,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "memory_no_slot-0.json",
+      "harness_wall_seconds": 0.012238299939781427
+    },
+    {
+      "id": "retrieval",
+      "repeat": 1,
+      "workflow": "meeting_email",
+      "model": "scripted",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "2ac863ce445fa22c2aa3da4d2fe7b3a1ef0b5a74cf147edde549bf465446bc2c",
+        "config_hash": "f6cb7be9d45b5f31fc283a338501f2dff67dca6256b091ee69caf41a9ef16ae0",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto"
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_relevance",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_reads",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "argument_constraints",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "action_budget",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 3,
+        "write_proposals": 0,
+        "execution_attempts": 3,
+        "read_attempts": 3,
+        "write_attempts": 0,
+        "retries": 0,
+        "proposal_validations": 0,
+        "mutations": 0,
+        "harness_mutations": 0,
+        "logical_write_operations": 0,
+        "invalid_calls": 0,
+        "model_calls": 4,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 4,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 3,
+          "denominator": 3,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "unnecessary_actions": 0,
+        "disallowed_actions": 0,
+        "active_seconds": 0.007988200057297945,
+        "charged_active_seconds": 0.007752400008030236,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "retrieval-1.json",
+      "harness_wall_seconds": 0.009321600082330406
+    },
+    {
+      "id": "exclude_read_unrelated",
+      "repeat": 1,
+      "workflow": "meeting_email",
+      "model": "scripted",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "bae4f3729b4f7153b99b5df699a3878789084eae03b125a338e9171770fa2d7b",
+        "config_hash": "e01ac4a5e0584a81f602a6898f146d0108379b8e28e06c2fe19d52be3dad4e5e",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto"
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_relevance",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_reads",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 3,
+        "write_proposals": 0,
+        "execution_attempts": 3,
+        "read_attempts": 3,
+        "write_attempts": 0,
+        "retries": 0,
+        "proposal_validations": 0,
+        "mutations": 0,
+        "harness_mutations": 0,
+        "logical_write_operations": 0,
+        "invalid_calls": 0,
+        "model_calls": 4,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 4,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 3,
+          "denominator": 3,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": null,
+        "disallowed_actions": 0,
+        "active_seconds": 0.0076543999603018165,
+        "charged_active_seconds": 0.007430400000885129,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "exclude_read_unrelated-1.json",
+      "harness_wall_seconds": 0.009087699931114912
+    },
+    {
+      "id": "missing_meeting",
+      "repeat": 1,
+      "workflow": "meeting_email",
+      "model": "scripted",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "4b2558c5e7b79f6561fbc51f1096a720c056129a42d48cfb94f1190dc5a677e9",
+        "config_hash": "775677b4b878fd6b0f1029d838023bf5c5d773479e9629e30d9d738815dedd98",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto"
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 1,
+        "write_proposals": 0,
+        "execution_attempts": 1,
+        "read_attempts": 1,
+        "write_attempts": 0,
+        "retries": 0,
+        "proposal_validations": 0,
+        "mutations": 0,
+        "harness_mutations": 0,
+        "logical_write_operations": 0,
+        "invalid_calls": 0,
+        "model_calls": 2,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 2,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": null,
+        "disallowed_actions": 0,
+        "active_seconds": 0.0037597999908030033,
+        "charged_active_seconds": 0.0035741999745368958,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "missing_meeting-1.json",
+      "harness_wall_seconds": 0.005168300005607307
+    },
+    {
+      "id": "ambiguous_meetings",
+      "repeat": 1,
+      "workflow": "meeting_email",
+      "model": "scripted",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "a85c59514345675a874ba75427b70c226edec53fc1e37d4c297c42079efc15d6",
+        "config_hash": "2d4db20fc73db98c033c47979d52787aaf9471809e369c3fde21fd3c32d27098",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto"
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 1,
+        "write_proposals": 0,
+        "execution_attempts": 1,
+        "read_attempts": 1,
+        "write_attempts": 0,
+        "retries": 0,
+        "proposal_validations": 0,
+        "mutations": 0,
+        "harness_mutations": 0,
+        "logical_write_operations": 0,
+        "invalid_calls": 0,
+        "model_calls": 2,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 2,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": null,
+        "disallowed_actions": 0,
+        "active_seconds": 0.004337600083090365,
+        "charged_active_seconds": 0.0040417000418528914,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "ambiguous_meetings-1.json",
+      "harness_wall_seconds": 0.005931399995461106
+    },
+    {
+      "id": "no_related_unread",
+      "repeat": 1,
+      "workflow": "meeting_email",
+      "model": "scripted",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "e3b552b3e9f797d7c13e5ee7c49fab969284421c9709d325bc2c8401e31b9ca9",
+        "config_hash": "fba91091e8a1a338a38b2b49eb3c88fd33b781daa2e6aae43b569ad3b57cf5e4",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto"
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 2,
+        "write_proposals": 0,
+        "execution_attempts": 2,
+        "read_attempts": 2,
+        "write_attempts": 0,
+        "retries": 0,
+        "proposal_validations": 0,
+        "mutations": 0,
+        "harness_mutations": 0,
+        "logical_write_operations": 0,
+        "invalid_calls": 0,
+        "model_calls": 3,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 3,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 2,
+          "denominator": 2,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": null,
+        "disallowed_actions": 0,
+        "active_seconds": 0.005478300037793815,
+        "charged_active_seconds": 0.0052550999680534005,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "no_related_unread-1.json",
+      "harness_wall_seconds": 0.006767599959857762
+    },
+    {
+      "id": "approved_reschedule",
+      "repeat": 1,
+      "workflow": "reschedule",
+      "model": "reschedule_demo",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "f65379f4a33c1c3356a746c659dc1e6c299bb5fb832f70a696ea37b31b4dff52",
+        "config_hash": "78eeb68341f8a85f749d99d1f73e0c80b5aedf9028406634682bc901134a0ee2",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto",
+          "destination_start": "2026-09-25T13:00:00-04:00",
+          "destination_end": "2026-09-25T17:00:00-04:00",
+          "slot_minutes": 15,
+          "earliest_meeting_start": null
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authorized_operation",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "execution_present",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "destination_bounds",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "no_overlap",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "action_budget",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 4,
+        "write_proposals": 1,
+        "execution_attempts": 4,
+        "read_attempts": 3,
+        "write_attempts": 1,
+        "retries": 0,
+        "proposal_validations": 1,
+        "mutations": 1,
+        "harness_mutations": 0,
+        "logical_write_operations": 1,
+        "invalid_calls": 0,
+        "model_calls": 5,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 5,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 4,
+          "denominator": 4,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": 0,
+        "disallowed_actions": 0,
+        "active_seconds": 0.016470200032927096,
+        "charged_active_seconds": 0.015613699913956225,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "approved_reschedule-1.json",
+      "harness_wall_seconds": 0.018889700062572956
+    },
+    {
+      "id": "transient_read",
+      "repeat": 1,
+      "workflow": "reschedule",
+      "model": "reschedule_demo",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": true,
+      "metadata": {
+        "scenario_hash": "44966ea0ecc8f19ed24d44ed0214473e7936a6534229c002e11f2710dbf1cbdb",
+        "config_hash": "78eeb68341f8a85f749d99d1f73e0c80b5aedf9028406634682bc901134a0ee2",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto",
+          "destination_start": "2026-09-25T13:00:00-04:00",
+          "destination_end": "2026-09-25T17:00:00-04:00",
+          "slot_minutes": 15,
+          "earliest_meeting_start": null
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authorized_operation",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "execution_present",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "destination_bounds",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "no_overlap",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "fault_exercised",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "action_budget",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 4,
+        "write_proposals": 1,
+        "execution_attempts": 5,
+        "read_attempts": 4,
+        "write_attempts": 1,
+        "retries": 1,
+        "proposal_validations": 1,
+        "mutations": 1,
+        "harness_mutations": 0,
+        "logical_write_operations": 1,
+        "invalid_calls": 0,
+        "model_calls": 5,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 5,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 4,
+          "denominator": 4,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": 0,
+        "disallowed_actions": 0,
+        "active_seconds": 0.07146029989235103,
+        "charged_active_seconds": 0.07060570002067834,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "transient_read-1.json",
+      "harness_wall_seconds": 0.07367479999084026
+    },
+    {
+      "id": "commit_recovery",
+      "repeat": 1,
+      "workflow": "reschedule",
+      "model": "reschedule_demo",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": true,
+      "metadata": {
+        "scenario_hash": "a620fa69716ef417b860004b1768f340b1ba0676cd840ff9939783c3bd7c6ff0",
+        "config_hash": "78eeb68341f8a85f749d99d1f73e0c80b5aedf9028406634682bc901134a0ee2",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto",
+          "destination_start": "2026-09-25T13:00:00-04:00",
+          "destination_end": "2026-09-25T17:00:00-04:00",
+          "slot_minutes": 15,
+          "earliest_meeting_start": null
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authorized_operation",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "execution_present",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "destination_bounds",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "no_overlap",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "fault_exercised",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "action_budget",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 4,
+        "write_proposals": 1,
+        "execution_attempts": 4,
+        "read_attempts": 3,
+        "write_attempts": 1,
+        "retries": 0,
+        "proposal_validations": 1,
+        "mutations": 1,
+        "harness_mutations": 0,
+        "logical_write_operations": 1,
+        "invalid_calls": 0,
+        "model_calls": 5,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 5,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 4,
+          "denominator": 4,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": 0,
+        "disallowed_actions": 0,
+        "active_seconds": 0.01696839986834675,
+        "charged_active_seconds": 5.015219200053252,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "commit_recovery-1.json",
+      "harness_wall_seconds": 0.019029299961403012
+    },
+    {
+      "id": "no_destination_slot",
+      "repeat": 1,
+      "workflow": "reschedule",
+      "model": "reschedule_demo",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "69c08d9ae84366ba22bd9a4566d3f5af87ce8fc166a6f5168f582e15da7c95c6",
+        "config_hash": "8b66c055b19820aa160af1864efbf29f15ee8644b0674a6e2451acc1f836b144",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto",
+          "destination_start": "2026-09-25T13:00:00-04:00",
+          "destination_end": "2026-09-25T17:00:00-04:00",
+          "slot_minutes": 15,
+          "earliest_meeting_start": null
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "independent_no_availability",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 2,
+        "write_proposals": 0,
+        "execution_attempts": 2,
+        "read_attempts": 2,
+        "write_attempts": 0,
+        "retries": 0,
+        "proposal_validations": 0,
+        "mutations": 0,
+        "harness_mutations": 0,
+        "logical_write_operations": 0,
+        "invalid_calls": 0,
+        "model_calls": 3,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 3,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 2,
+          "denominator": 2,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": null,
+        "disallowed_actions": 0,
+        "active_seconds": 0.008223799988627434,
+        "charged_active_seconds": 0.007997900014743209,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "no_destination_slot-1.json",
+      "harness_wall_seconds": 0.00996679998934269
+    },
+    {
+      "id": "approval_denied",
+      "repeat": 1,
+      "workflow": "reschedule",
+      "model": "reschedule_demo",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "ac1a8aa5965f8907c868523a0b67003fdd26aacc6c1ea14e9084559f1efb8a64",
+        "config_hash": "78eeb68341f8a85f749d99d1f73e0c80b5aedf9028406634682bc901134a0ee2",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto",
+          "destination_start": "2026-09-25T13:00:00-04:00",
+          "destination_end": "2026-09-25T17:00:00-04:00",
+          "slot_minutes": 15,
+          "earliest_meeting_start": null
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "denied",
+      "metrics": {
+        "tool_proposals": 3,
+        "write_proposals": 1,
+        "execution_attempts": 2,
+        "read_attempts": 2,
+        "write_attempts": 0,
+        "retries": 0,
+        "proposal_validations": 1,
+        "mutations": 0,
+        "harness_mutations": 0,
+        "logical_write_operations": 1,
+        "invalid_calls": 0,
+        "model_calls": 3,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 3,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 3,
+          "denominator": 3,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": null,
+        "disallowed_actions": 0,
+        "active_seconds": 0.008874299935996532,
+        "charged_active_seconds": 0.008094400051049888,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "approval_denied-1.json",
+      "harness_wall_seconds": 0.010629800031892955
+    },
+    {
+      "id": "occupied_after_approval",
+      "repeat": 1,
+      "workflow": "reschedule",
+      "model": "reschedule_demo",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": true,
+      "metadata": {
+        "scenario_hash": "b478ef1357d4422cd651268f546d49e85a9e8f38c741eaf91b7f40a0e15f7b03",
+        "config_hash": "78eeb68341f8a85f749d99d1f73e0c80b5aedf9028406634682bc901134a0ee2",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto",
+          "destination_start": "2026-09-25T13:00:00-04:00",
+          "destination_end": "2026-09-25T17:00:00-04:00",
+          "slot_minutes": 15,
+          "earliest_meeting_start": null
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authorized_operation",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "execution_present",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "destination_bounds",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "no_overlap",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "fresh_approval",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "fault_exercised",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 7,
+        "write_proposals": 2,
+        "execution_attempts": 7,
+        "read_attempts": 5,
+        "write_attempts": 2,
+        "retries": 0,
+        "proposal_validations": 2,
+        "mutations": 2,
+        "harness_mutations": 1,
+        "logical_write_operations": 2,
+        "invalid_calls": 0,
+        "model_calls": 8,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 8,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 7,
+          "denominator": 7,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": null,
+        "disallowed_actions": 0,
+        "active_seconds": 0.028146399999968708,
+        "charged_active_seconds": 0.026236700010485947,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "occupied_after_approval-1.json",
+      "harness_wall_seconds": 0.032023999956436455
+    },
+    {
+      "id": "malformed_model",
+      "repeat": 1,
+      "workflow": "meeting_email",
+      "model": "scripted",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "b7dc26bcf63fe370bcfcb636d117c16c71679f6ab390d3ccad469ea15c68cb92",
+        "config_hash": "fea2d97d56a5ce82559569f72e75f70a597f980201555e66d0e488cb6bf42073",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto"
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "action_budget",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "failed",
+      "metrics": {
+        "tool_proposals": 0,
+        "write_proposals": 0,
+        "execution_attempts": 0,
+        "read_attempts": 0,
+        "write_attempts": 0,
+        "retries": 0,
+        "proposal_validations": 0,
+        "mutations": 0,
+        "harness_mutations": 0,
+        "logical_write_operations": 0,
+        "invalid_calls": 3,
+        "model_calls": 3,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 3,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": 0,
+        "disallowed_actions": 0,
+        "active_seconds": 0.007237799931317568,
+        "charged_active_seconds": 0.006966600078158081,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "malformed_model-1.json",
+      "harness_wall_seconds": 0.009143900009803474
+    },
+    {
+      "id": "memory_disabled",
+      "repeat": 1,
+      "workflow": "reschedule",
+      "model": "reschedule_demo",
+      "backend": "memory",
+      "memory_strategy": "disabled",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "2f2eb36f41f1f60a1ec0a808153869b6de0bd356b58708b189427e78a6e0eed6",
+        "config_hash": "6aa2cc532ed8e9af4a1984a0607285ae391a16cff8b5896ad2af2f1c69f6b0bb",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto",
+          "destination_start": "2026-09-25T13:00:00-04:00",
+          "destination_end": "2026-09-25T17:00:00-04:00",
+          "slot_minutes": 15,
+          "earliest_meeting_start": null
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authorized_operation",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "execution_present",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "destination_bounds",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "no_overlap",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "preference_satisfied",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "preference_revisions",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "episodes",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:email_relevance",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:email_reads",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:allowed_tools",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:argument_constraints",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:action_budget",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "action_budget",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 7,
+        "write_proposals": 1,
+        "execution_attempts": 7,
+        "read_attempts": 6,
+        "write_attempts": 1,
+        "retries": 0,
+        "proposal_validations": 1,
+        "mutations": 1,
+        "harness_mutations": 0,
+        "logical_write_operations": 1,
+        "invalid_calls": 0,
+        "model_calls": 9,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 9,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 7,
+          "denominator": 7,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "unnecessary_actions": 0,
+        "disallowed_actions": 0,
+        "active_seconds": 0.02660680003464222,
+        "charged_active_seconds": 0.02539550024084747,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 1,
+          "value": 0.0
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "memory_disabled-1.json",
+      "harness_wall_seconds": 0.030971899977885187
+    },
+    {
+      "id": "memory_structured",
+      "repeat": 1,
+      "workflow": "reschedule",
+      "model": "reschedule_demo",
+      "backend": "memory",
+      "memory_strategy": "structured",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "626c1f0158f08b4bdad73e60f55c2e52d9173fc288f2574fce134395b867fa8f",
+        "config_hash": "959d57d2d49b14ee7248e5b2f4291ed7322a3657d154308a02d884f08eb78fd1",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto",
+          "destination_start": "2026-09-25T13:00:00-04:00",
+          "destination_end": "2026-09-25T17:00:00-04:00",
+          "slot_minutes": 15,
+          "earliest_meeting_start": null
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authorized_operation",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "execution_present",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "destination_bounds",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "no_overlap",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "episode_projected",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "preference_satisfied",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "preference_revisions",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "episodes",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:email_relevance",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:email_reads",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:episode_projected",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:allowed_tools",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:argument_constraints",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "prior:action_budget",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "action_budget",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 7,
+        "write_proposals": 1,
+        "execution_attempts": 7,
+        "read_attempts": 6,
+        "write_attempts": 1,
+        "retries": 0,
+        "proposal_validations": 1,
+        "mutations": 1,
+        "harness_mutations": 0,
+        "logical_write_operations": 1,
+        "invalid_calls": 0,
+        "model_calls": 9,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 9,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 7,
+          "denominator": 7,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "unnecessary_actions": 0,
+        "disallowed_actions": 0,
+        "active_seconds": 0.025145500083453953,
+        "charged_active_seconds": 0.02270979981403798,
+        "preference_satisfaction": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "memory_structured-1.json",
+      "harness_wall_seconds": 0.02888250001706183
+    },
+    {
+      "id": "memory_changed",
+      "repeat": 1,
+      "workflow": "reschedule",
+      "model": "reschedule_demo",
+      "backend": "memory",
+      "memory_strategy": "structured",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "2fa15d0d31b33cab4a08da1de8167d563797357d3a1a8ab64e25e2498539ce32",
+        "config_hash": "c7ca168c470eaa32e3ffcc27fd0f516e9a54fdd9146ee4987eb3fd4ccd23de7e",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto",
+          "destination_start": "2026-09-25T13:00:00-04:00",
+          "destination_end": "2026-09-25T17:00:00-04:00",
+          "slot_minutes": 15,
+          "earliest_meeting_start": null
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authorized_operation",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "execution_present",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "destination_bounds",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "no_overlap",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "episode_projected",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "preference_satisfied",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "preference_revisions",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "episodes",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "action_budget",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 4,
+        "write_proposals": 1,
+        "execution_attempts": 4,
+        "read_attempts": 3,
+        "write_attempts": 1,
+        "retries": 0,
+        "proposal_validations": 1,
+        "mutations": 1,
+        "harness_mutations": 0,
+        "logical_write_operations": 1,
+        "invalid_calls": 0,
+        "model_calls": 5,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 5,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 4,
+          "denominator": 4,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": 0,
+        "disallowed_actions": 0,
+        "active_seconds": 0.01703850005287677,
+        "charged_active_seconds": 0.01541770005133003,
+        "preference_satisfaction": {
+          "numerator": 1,
+          "denominator": 1,
+          "value": 1.0
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "memory_changed-1.json",
+      "harness_wall_seconds": 0.01965659996494651
+    },
+    {
+      "id": "memory_no_slot",
+      "repeat": 1,
+      "workflow": "reschedule",
+      "model": "reschedule_demo",
+      "backend": "memory",
+      "memory_strategy": "structured",
+      "recovery_applicable": false,
+      "metadata": {
+        "scenario_hash": "1073dacb36a7747f6b552e4c6834d8b8dc144d90d3ea7e52e59f71b0f4f6bd26",
+        "config_hash": "b0f452343f1fc1a2047a80c21a76d63a2c5841a3feeaf5294fa0bdc12e211f7c",
+        "semantic_clock": "2026-09-20T12:00:00-04:00",
+        "context": {
+          "participant": "alice@example.com",
+          "start": "2026-09-21T00:00:00-04:00",
+          "end": "2026-09-28T00:00:00-04:00",
+          "timezone": "America/Toronto",
+          "destination_start": "2026-09-25T13:00:00-04:00",
+          "destination_end": "2026-09-25T17:00:00-04:00",
+          "slot_minutes": 15,
+          "earliest_meeting_start": null
+        },
+        "seed": null
+      },
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "terminal",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "outcome",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "meeting_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "email_ids",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "authoritative_calendar",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "approval_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "operation_count",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "independent_no_availability",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "episode_projected",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "preference_revisions",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "episodes",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "allowed_tools",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "name": "action_budget",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "runtime_status": "completed",
+      "metrics": {
+        "tool_proposals": 2,
+        "write_proposals": 0,
+        "execution_attempts": 2,
+        "read_attempts": 2,
+        "write_attempts": 0,
+        "retries": 0,
+        "proposal_validations": 0,
+        "mutations": 0,
+        "harness_mutations": 0,
+        "logical_write_operations": 0,
+        "invalid_calls": 0,
+        "model_calls": 3,
+        "provider_usage": null,
+        "usage_coverage": {
+          "numerator": 0,
+          "denominator": 3,
+          "value": 0.0
+        },
+        "inference_cost": null,
+        "tool_selection": {
+          "numerator": 2,
+          "denominator": 2,
+          "value": 1.0
+        },
+        "arguments": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "unnecessary_actions": 0,
+        "disallowed_actions": 0,
+        "active_seconds": 0.009128900012001395,
+        "charged_active_seconds": 0.008377699996344745,
+        "preference_satisfaction": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        },
+        "recovery": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null
+        }
+      },
+      "execution_limits": {
+        "max_steps": 12,
+        "max_model_calls": 12,
+        "max_errors": 3,
+        "deadline_seconds": 120.0,
+        "model_timeout": 30.0,
+        "tool_timeout": 5.0,
+        "storage_timeout": 5.0,
+        "read_retries": 2,
+        "retry_backoff": 0.05
+      },
+      "trajectory": "memory_no_slot-1.json",
+      "harness_wall_seconds": 0.011117200017906725
+    }
+  ]
+}

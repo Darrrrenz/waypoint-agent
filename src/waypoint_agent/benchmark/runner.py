@@ -136,7 +136,9 @@ async def run_scenario(
             tool.execute = read
         return runtime
 
+    active_started = perf_counter()
     checkpoint = await fresh(state).run(state)
+    active_execution_seconds = perf_counter() - active_started
     for _ in range(max_resumes):
         state = checkpoint.state
         if state.task.status not in ("waiting_for_approval", "unresolved", "running"):
@@ -144,6 +146,15 @@ async def run_scenario(
         if state.task.status == "waiting_for_approval":
             if scenario.approval == "none":
                 break
+            decision = "approved" if scenario.approval == "approve" else "denied"
+            await decide(repo, state.task.id, state.pending_approval_id, decision)
+            harness_actions.append(
+                {
+                    "actor": "test-harness",
+                    "decision": decision,
+                    "approval_id": str(state.pending_approval_id),
+                }
+            )
             if scenario.fault == "occupied_slot" and not fault_triggered:
                 # A separate synthetic actor occupies the proposed slot through the real store.
                 bob = next(m for m in before if m.id == "cal-bob-001")
@@ -159,23 +170,29 @@ async def run_scenario(
                 await store.update(world, uuid4(), query, ctx)
                 fault_triggered = True
                 harness_actions.append({"actor": "test-harness", "action": "occupy_slot"})
-            decision = "approved" if scenario.approval == "approve" else "denied"
-            await decide(repo, state.task.id, state.pending_approval_id, decision)
-            harness_actions.append(
-                {
-                    "actor": "test-harness",
-                    "decision": decision,
-                    "approval_id": str(state.pending_approval_id),
-                }
-            )
+        active_started = perf_counter()
         try:
             checkpoint = await fresh(state).resume(state.task.id)
         except InjectedCrash:
             checkpoint, _ = await repo.load(state.task.id)
+        finally:
+            active_execution_seconds += perf_counter() - active_started
     checkpoint, events = await repo.load(state.task.id)
     after = await store.events(world)
     operations = await ledger(store, world)
     assertions = score(scenario, checkpoint.state, before, after, operations)
+    if (
+        checkpoint.state.memory_strategy == "structured"
+        and checkpoint.state.task.status == "completed"
+    ):
+        projected = checkpoint.state.memory_projection == "stored"
+        assertions.append(
+            {
+                "name": "episode_projected",
+                "passed": projected,
+                "detail": "" if projected else "Verified episode projection failed",
+            }
+        )
     records = await memory.store.records(namespace)
     preference_satisfied = None
     if (
@@ -232,6 +249,7 @@ async def run_scenario(
         "assertions": assertions,
         "harness_actions": harness_actions,
         "fault_triggered": triggered,
+        "active_execution_seconds": active_execution_seconds,
         "memory": {
             "namespace": namespace,
             "strategy": checkpoint.state.memory_strategy,

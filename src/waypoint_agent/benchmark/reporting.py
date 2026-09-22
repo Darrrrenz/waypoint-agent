@@ -142,7 +142,8 @@ def summarize(scenario, run, pricing=None):
         "arguments": ratio(sum(arguments), len(arguments)),
         "unnecessary_actions": unnecessary,
         "disallowed_actions": selection.count(False) if allowed is not None else None,
-        "active_seconds": state.active_seconds,
+        "active_seconds": run["active_execution_seconds"],
+        "charged_active_seconds": state.active_seconds,
         "preference_satisfaction": ratio(int(run["memory"]["preference_satisfied"]), 1)
         if run["memory"]["preference_satisfied"] is not None
         else ratio(0, 0),
@@ -165,6 +166,7 @@ def summarize(scenario, run, pricing=None):
             "invalid_calls",
             "model_calls",
             "active_seconds",
+            "charged_active_seconds",
             "proposal_validations",
             "harness_mutations",
         ):
@@ -211,6 +213,13 @@ def write_reports(output, suite, results, backend, repeats, pricing=None):
         **revision(),
         "backend": backend,
         "model_mode": "deterministic",
+        "coverage": {
+            "live_inference": "not_run",
+            "process_restart": "not_measured",
+            "database_persistence": "not_run"
+            if backend == "memory"
+            else "in_process_database_execution; subprocess tests are separate",
+        },
         "repeats": repeats,
         "pricing": pricing.model_dump(mode="json") if pricing else None,
         "summary": {
