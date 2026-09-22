@@ -58,6 +58,14 @@ def show_approvals(state):
 
 async def dispatch(args):
     settings = Settings()
+    if args.command == "benchmark":
+        from waypoint_agent.benchmark.runner import run_suite
+
+        logging.getLogger("waypoint_agent").setLevel(logging.WARNING)
+        report = await run_suite(args.suite, args.output, args.backend, args.repeats, settings)
+        rate = report["summary"]["pass_rate"]
+        print(f"Benchmark: {rate['numerator']}/{rate['denominator']} passed; {args.output}")
+        return 0 if rate["value"] == 1 else 2
     repository = (
         MemoryRepository()
         if getattr(args, "ephemeral", False)
@@ -175,6 +183,12 @@ async def dispatch(args):
 def main():
     parser = argparse.ArgumentParser(prog="waypoint-agent")
     sub = parser.add_subparsers(dest="command", required=True)
+    benchmark = sub.add_parser("benchmark")
+    benchmark.add_argument("--suite", type=Path, default=Path("benchmarks/core.json"))
+    benchmark.add_argument("--backend", choices=["memory", "postgres"], default="memory")
+    benchmark.add_argument("--model-mode", choices=["deterministic"], default="deterministic")
+    benchmark.add_argument("--output", type=Path, default=Path("artifacts/benchmark"))
+    benchmark.add_argument("--repeats", type=int, choices=range(1, 101), default=1)
     sub.add_parser("init-db")
     seed = sub.add_parser("seed-calendar")
     seed.add_argument("--world-id", type=UUID, default=None)
