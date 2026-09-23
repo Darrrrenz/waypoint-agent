@@ -31,6 +31,28 @@ The semantic clock is fixed to September 20, 2026 in America/Toronto.
 - A 16-scenario benchmark with independent calendar checks, JSON/Markdown reports, and CI artifacts.
 - Credential-free scripted/demo models and an opt-in OpenAI-compatible adapter for ordinary runs.
 
+## Offline trace viewer
+
+Read a single-task trajectory export as text or Markdown, without a database, Docker,
+model credentials, or network access:
+
+```sh
+uv run waypoint-agent trace --input docs/example-trajectory.json
+uv run waypoint-agent trace --input docs/day2-example-trajectory.json --format markdown --output artifacts/reschedule-trace.md
+```
+
+Text goes to stdout by default; `--output` creates parent directories as needed. The viewer
+validates the existing checkpoint/event schemas, task IDs, and contiguous sequence numbers.
+Invalid or inconsistent exports exit nonzero. It keeps proposals, approval decisions,
+operation attempts/results, and memory projection outcomes distinct, with source IDs and
+counts instead of full tool/model payloads. `inspect` and JSON exports are unchanged.
+
+See the [rendered Day 2 trace](docs/trace-example.md), generated from the existing **synthetic,
+in-memory example**. To regenerate it, use the second command with `--output docs/trace-example.md`.
+The viewer summarizes recorded evidence; it does not re-execute verification or authenticate
+exports. Aggregated benchmark reports and `docs/benchmark-example/memory-pair.json` are not
+supported. Unknown event kinds remain visible with a generic description.
+
 ## Persistent approval and memory demo
 
 Start the development database and initialize its additive tables:
@@ -87,7 +109,8 @@ uv run pre-commit run --all-files
 uv build
 ```
 
-Local validation: **95 tests passed, 12 PostgreSQL tests skipped; 32/32 benchmark runs passed**.
+Local validation: **118 tests passed, 12 PostgreSQL tests skipped**. The existing Day 3
+benchmark evidence records **32/32 benchmark runs passed**.
 See the [generated report](docs/benchmark-example/report.md),
 [paired memory evidence](docs/benchmark-example/memory-pair.json), and
 [benchmark/memory guide](docs/day3.md) for methodology, commands, results, and limitations.
