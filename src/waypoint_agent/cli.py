@@ -21,6 +21,7 @@ from waypoint_agent.storage.memory import MemoryRepository
 from waypoint_agent.storage.postgres import PostgresRepository
 from waypoint_agent.tools.calendar import calendar_tools
 from waypoint_agent.tools.mock import Dataset, mock_tools
+from waypoint_agent.tracing import TraceError, render_export
 
 DEFAULT_GOAL = (
     "Find my meeting with Alice next week and tell me whether I have any related unread emails."
@@ -64,6 +65,23 @@ def show_approvals(state):
 
 
 async def dispatch(args):
+    if args.command == "trace":
+        try:
+            if args.output and (
+                args.input.resolve() == args.output.resolve()
+                or (args.output.exists() and args.input.samefile(args.output))
+            ):
+                raise TraceError("Output must not overwrite the input export")
+            rendered = render_export(args.input, args.format)
+            if args.output:
+                args.output.parent.mkdir(parents=True, exist_ok=True)
+                args.output.write_text(rendered, encoding="utf-8")
+            else:
+                print(rendered, end="")
+        except (TraceError, OSError) as exc:
+            print(f"Trace failed: {exc}", file=sys.stderr)
+            return 1
+        return 0
     settings = Settings()
     if args.command == "benchmark":
         from waypoint_agent.benchmark.runner import run_suite
@@ -222,6 +240,10 @@ async def dispatch(args):
 def main():
     parser = argparse.ArgumentParser(prog="waypoint-agent")
     sub = parser.add_subparsers(dest="command", required=True)
+    trace = sub.add_parser("trace", help="Read a single-task JSON export offline")
+    trace.add_argument("--input", type=Path, required=True)
+    trace.add_argument("--format", choices=["text", "markdown"], default="text")
+    trace.add_argument("--output", type=Path)
     benchmark = sub.add_parser("benchmark")
     benchmark.add_argument("--suite", type=Path, default=Path("benchmarks/core.json"))
     benchmark.add_argument("--backend", choices=["memory", "postgres"], default="memory")
